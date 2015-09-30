@@ -1,18 +1,19 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location) {
-    $scope.user = {};
-    $scope.errors = {};
+  .controller('SignUpController', function (Auth, $location) {
+    var vm = this;
+    vm.user = {};
+    vm.errors = {};
 
-    $scope.register = function(form) {
-      $scope.submitted = true;
+    vm.register = function(form) {
+      vm.submitted = true;
 
       if(form.$valid) {
         Auth.createUser({
-          name: $scope.user.name,
-          email: $scope.user.email,
-          password: $scope.user.password
+          name: vm.user.name,
+          email: vm.user.email,
+          password: vm.user.password
         })
         .then( function() {
           // Account created, redirect to home
@@ -20,12 +21,12 @@ angular.module('instantFeedApp')
         })
         .catch( function(err) {
           err = err.data;
-          $scope.errors = {};
+          vm.errors = {};
 
           // Update validity of form fields that match the mongoose errors
           angular.forEach(err.errors, function(error, field) {
             form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
+            vm.errors[field] = error.message;
           });
         });
       }

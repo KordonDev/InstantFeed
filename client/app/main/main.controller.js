@@ -1,23 +1,24 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('MainCtrl', function ($scope, $http, socket) {
-    $scope.awesomeThings = [];
+  .controller('MainController', function ($scope, $http, socket) {
+    var vm = this;
+    vm.awesomeThings = [];
 
     $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-      socket.syncUpdates('thing', $scope.awesomeThings);
+      vm.awesomeThings = awesomeThings;
+      socket.syncUpdates('thing', vm.awesomeThings);
     });
 
-    $scope.addThing = function() {
-      if($scope.newThing === '') {
+    vm.addThing = function() {
+      if(vm.newThing === '') {
         return;
       }
-      $http.post('/api/things', { name: $scope.newThing });
-      $scope.newThing = '';
+      $http.post('/api/things', { name: vm.newThing });
+      vm.newThing = '';
     };
 
-    $scope.deleteThing = function(thing) {
+    vm.deleteThing = function(thing) {
       $http.delete('/api/things/' + thing._id);
     };
 

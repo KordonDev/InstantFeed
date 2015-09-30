@@ -1,24 +1,25 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location) {
-    $scope.user = {};
-    $scope.errors = {};
+  .controller('LoginController', function (Auth, $location) {
+    var vm = this;
+    vm.user = {};
+    vm.errors = {};
 
-    $scope.login = function(form) {
-      $scope.submitted = true;
+    vm.login = function(form) {
+      vm.submitted = true;
 
       if(form.$valid) {
         Auth.login({
-          email: $scope.user.email,
-          password: $scope.user.password
+          email: vm.user.email,
+          password: vm.user.password
         })
         .then( function() {
           // Logged in, redirect to home
           $location.path('/');
         })
         .catch( function(err) {
-          $scope.errors.other = err.message;
+          vm.errors.other = err.message;
         });
       }
     };

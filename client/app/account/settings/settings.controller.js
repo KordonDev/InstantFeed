@@ -1,20 +1,21 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('SettingsCtrl', function ($scope, User, Auth) {
-    $scope.errors = {};
+  .controller('SettingsController', function (User, Auth) {
+    var vm = this;
+    vm.errors = {};
 
-    $scope.changePassword = function(form) {
-      $scope.submitted = true;
+    vm.changePassword = function(form) {
+      vm.submitted = true;
       if(form.$valid) {
-        Auth.changePassword( $scope.user.oldPassword, $scope.user.newPassword )
+        Auth.changePassword(vm.user.oldPassword, vm.user.newPassword )
         .then( function() {
-          $scope.message = 'Password successfully changed.';
+          vm.message = 'Password successfully changed.';
         })
         .catch( function() {
           form.password.$setValidity('mongoose', false);
-          $scope.errors.other = 'Incorrect password';
-          $scope.message = '';
+          vm.errors.other = 'Incorrect password';
+          vm.message = '';
         });
       }
 		};

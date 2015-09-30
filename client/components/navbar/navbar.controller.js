@@ -1,23 +1,24 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('NavbarCtrl', function ($scope, $location, Auth) {
-    $scope.menu = [{
+  .controller('NavbarController', function ($location, Auth) {
+    var vm = this;
+    vm.menu = [{
       'title': 'Home',
       'link': '/'
     }];
 
-    $scope.isCollapsed = true;
-    $scope.isLoggedIn = Auth.isLoggedIn;
-    $scope.isAdmin = Auth.isAdmin;
-    $scope.getCurrentUser = Auth.getCurrentUser;
+    vm.isCollapsed = true;
+    vm.isLoggedIn = Auth.isLoggedIn;
+    vm.isAdmin = Auth.isAdmin;
+    vm.getCurrentUser = Auth.getCurrentUser;
 
-    $scope.logout = function() {
+    vm.logout = function() {
       Auth.logout();
       $location.path('/login');
     };
 
-    $scope.isActive = function(route) {
+    vm.isActive = function(route) {
       return route === $location.path();
     };
   });

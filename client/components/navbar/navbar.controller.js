@@ -6,6 +6,9 @@ angular.module('instantFeedApp')
     vm.menu = [{
       'title': 'Home',
       'link': '/'
+    }, {
+      'title': 'Publish',
+      'link': '/publisher'
     }];
 
     vm.isCollapsed = true;

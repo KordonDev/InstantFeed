@@ -1,0 +1,13 @@
+<form>
+  <label>Publish a new message</label>
+  <p class="input-group">
+    <input type="text" class="form-control" placeholder="Text for the message." ng-model="publisher.newMessage.name">
+    <span class="input-group-btn">
+      <button type="submit" class="btn btn-primary" ng-click="publisher.publishMessage()">Publish message</button>
+    </span>
+  </p>
+</form>
+
+<ul>
+  <li ng-repeat="message in publisher.messages">{{ message.name }}</li>
+</ul>

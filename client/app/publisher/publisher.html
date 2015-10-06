@@ -1,13 +1,17 @@
 <form>
-  <label>Publish a new message</label>
+  <label>Publish a new message:</label>
   <p class="input-group">
-    <input type="text" class="form-control" placeholder="Text for the message." ng-model="publisher.newMessage.name">
-    <span class="input-group-btn">
+    <input type="text" class="form-control" placeholder="Message belongs to." ng-model="publisher.newMessage.belongsTo">
+    <input type="text" class="form-control" placeholder="Text for the message." ng-model="publisher.newMessage.text">
+    <span class="btn">
       <button type="submit" class="btn btn-primary" ng-click="publisher.publishMessage()">Publish message</button>
     </span>
   </p>
 </form>
 
 <ul>
-  <li ng-repeat="message in publisher.messages">{{ message.name }}</li>
+  <li ng-repeat="message in publisher.messages">
+    <b>{{ message.belongsTo}}</b> ({{ message.timePublished }}): <br>
+    {{ message.text }}
+  </li>
 </ul>

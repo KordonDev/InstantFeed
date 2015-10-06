@@ -11,11 +11,16 @@ angular.module('instantFeedApp')
     });
 
     vm.publishMessage = function() {
-      if (vm.newMessage.name == '') {
+      if (vm.newMessage.text == '') {
         return;
       }
-      $http.post('/api/messages', { name: vm.newMessage.name });
-      vm.newMessage.name = '';
+      var messageToSave = {
+        text: vm.newMessage.text,
+        timePublished: new Date(),
+        belongsTo: vm.newMessage.belongsTo
+      };
+      $http.post('/api/messages', messageToSave);
+      vm.newMessage.text = '';
     }
 
     $scope.$on('$destroy', function () {

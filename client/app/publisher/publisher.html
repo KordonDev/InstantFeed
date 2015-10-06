@@ -11,7 +11,15 @@
 
 <ul>
   <li ng-repeat="message in publisher.messages">
-    <b>{{ message.belongsTo}}</b> ({{ message.timePublished }}): <br>
-    {{ message.text }}
+    <div ng-show="change !== true">
+      <b>{{ message.belongsTo}}</b> ({{ message.timePublished }}): <br>
+      {{ message.text }}
+      <button class="btn align-right" ng-click="change = true">Change message</button>
+    </div>
+    <div ng-show="change === true">
+      <input type="text" class="form-control" placeholder="Message belongs to." ng-model="message.belongsTo">
+      <input type="text" class="form-control" placeholder="Text for the message." ng-model="message.text">
+      <button class="btn" ng-click="publisher.changeMessage(message)">Save changed Message</button>
+    </div>
   </li>
 </ul>

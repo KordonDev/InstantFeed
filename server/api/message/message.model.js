@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 
 var MessageSchema = new Schema({
   text: String,
-  //picture: { data: Buffer, contentType: String},
+//  picture: { data: Buffer, contentType: String},
   timePublished: Date,
   belongsTo: String
 });

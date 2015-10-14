@@ -3,8 +3,17 @@
   <p class="input-group">
     <input type="text" class="form-control" placeholder="Message belongs to." ng-model="publisher.newMessage.belongsTo">
     <input type="text" class="form-control" placeholder="Text for the message." ng-model="publisher.newMessage.text">
+
+<!--    <dif ngf-drop ngf-select ng-model="publisher.picture" class="drop-box"
+            ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+            accept="image/*"
+            ngf-pattern="'image/*'">Drop images here or click to upload</div> -->
+
+
+    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
     <span class="btn">
-      <button type="submit" class="btn btn-primary" ng-click="publisher.publishMessage()">Publish message</button>
+      <button type="submit" class="btn btn-primary" ng-click="publisher.upload()">Publish message</button>
     </span>
   </p>
 </form>
@@ -15,6 +24,7 @@
       <b>{{ message.belongsTo}}</b> ({{ message.timePublished }}): <br>
       {{ message.text }}
       <button class="btn align-right" ng-click="change = true">Change message</button>
+      <img src="message.picture.data" alt="" />
     </div>
     <div ng-show="change === true">
       <input type="text" class="form-control" placeholder="Message belongs to." ng-model="message.belongsTo">
@@ -23,3 +33,12 @@
     </div>
   </li>
 </ul>
+
+<form name="newPost", enctype="multipart/form-data">
+  <input type="file" ngf-select ng-model="publisher.picFile" name="file"
+   accept="image/*" ngf-max-size="2MB" required>
+
+  <img ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile" class="thumb"> <button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>
+  <button type="submit" class="btn" ng-click="publisher.imageUpload()">Upload Image</button>
+</form>
+<img src="uploads/test.jpg" alt="" />

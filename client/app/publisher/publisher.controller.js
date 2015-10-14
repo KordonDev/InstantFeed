@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('PublisherController', function ($scope, $http, socket) {
+  .controller('PublisherController', function ($scope, $http, Upload, socket) {
     var vm = this;
     vm.messages = [];
 
@@ -10,16 +10,27 @@ angular.module('instantFeedApp')
       socket.syncUpdates('message', vm.messages);
     });
 
+    vm.imageUpload = function() {
+      Upload.upload({
+        url: 'http://localhost:9000/api/images',
+        data: {
+          file: vm.picFile
+        },
+        method: 'POST'
+      }).then(function(response){
+        console.log(response);
+      });
+    }
+
     vm.publishMessage = function() {
       if (vm.newMessage.text == '') {
         return;
       }
       vm.newMessage.timePublished = new Date();
-      /*var messageToSave = {
-        text: vm.newMessage.text,
-        timePublished: new Date(),
-        belongsTo: vm.newMessage.belongsTo
-      };*/
+      vm.newMessage.picture = {};
+      vm.newMessage.picture.contentType = vm.picture[0].type;
+      vm.newMessage.picture.data = vm.picture[0];
+      console.log(vm.newMessage);
       $http.post('/api/messages', vm.newMessage);
       vm.newMessage = {};
     };

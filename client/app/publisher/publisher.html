@@ -13,26 +13,24 @@
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
     <span class="btn">
-      <button type="submit" class="btn btn-primary" ng-click="publisher.upload()">Publish message</button>
+      <button type="submit" class="btn btn-primary" ng-click="publisher.publishMessage()">Publish message</button>
     </span>
   </p>
 </form>
 
-<ul>
-  <li ng-repeat="message in publisher.messages">
-    <div ng-show="change !== true">
+<div ng-repeat="message in publisher.messages track by $index">
+    <div class="tile" ng-show="change !== true">
       <b>{{ message.belongsTo}}</b> ({{ message.timePublished }}): <br>
       {{ message.text }}
-      <button class="btn align-right" ng-click="change = true">Change message</button>
-      <img src="message.picture.data" alt="" />
+      <button class="glyphicon glyphicon-pencil align-right" ng-click="change = true"></button>
     </div>
+
     <div ng-show="change === true">
       <input type="text" class="form-control" placeholder="Message belongs to." ng-model="message.belongsTo">
       <input type="text" class="form-control" placeholder="Text for the message." ng-model="message.text">
-      <button class="btn" ng-click="publisher.changeMessage(message)">Save changed Message</button>
+      <button class="btn" ng-click="publisher.changeMessage(message); change = false">Save changed Message</button>
     </div>
-  </li>
-</ul>
+</div>
 
 <form name="newPost", enctype="multipart/form-data">
   <input type="file" ngf-select ng-model="publisher.picFile" name="file"

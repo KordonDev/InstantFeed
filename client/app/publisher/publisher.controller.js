@@ -27,10 +27,6 @@ angular.module('instantFeedApp')
         return;
       }
       vm.newMessage.timePublished = new Date();
-      vm.newMessage.picture = {};
-      vm.newMessage.picture.contentType = vm.picture[0].type;
-      vm.newMessage.picture.data = vm.picture[0];
-      console.log(vm.newMessage);
       $http.post('/api/messages', vm.newMessage);
       vm.newMessage = {};
     };

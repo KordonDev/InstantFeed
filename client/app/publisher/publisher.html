@@ -1,42 +1,43 @@
 <form>
-  <label>Publish a new message:</label>
-  <p class="input-group">
-    <input type="text" class="form-control" placeholder="Message belongs to." ng-model="publisher.newMessage.belongsTo">
-    <input type="text" class="form-control" placeholder="Text for the message." ng-model="publisher.newMessage.text">
 
-<!--    <dif ngf-drop ngf-select ng-model="publisher.picture" class="drop-box"
+  <label>Publish a new message:</label>
+  <input class="form-control" ng-model="publisher.newMessage.belongsTo" placeholder="Message belongs to." type="text">
+  <textarea class="form-control" ng-model="publisher.newMessage.text" placeholder="Text for the message." rows="3"></textarea>
+
+  <!--    <dif ngf-drop ngf-select ng-model="publisher.picture" class="drop-box"
             ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
             accept="image/*"
             ngf-pattern="'image/*'">Drop images here or click to upload</div> -->
 
+  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
-    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-
-    <span class="btn">
-      <button type="submit" class="btn btn-primary" ng-click="publisher.publishMessage()">Publish message</button>
-    </span>
-  </p>
+  <span class="btn">
+    <button class="btn btn-primary" ng-click="publisher.publishMessage()" type="submit">Publish message</button>
+  </span>
 </form>
 
 <div ng-repeat="message in publisher.messages track by $index">
-    <div class="tile" ng-show="change !== true">
-      <b>{{ message.belongsTo}}</b> ({{ message.timePublished }}): <br>
-      {{ message.text }}
-      <button class="glyphicon glyphicon-pencil align-right" ng-click="change = true"></button>
-    </div>
+  <div class="well" ng-show="change !== true">
+    <b>{{ message.belongsTo}}</b>
+    ({{ message.timePublished }}):
+    <br>
+    {{ message.text }}
+    <button class="glyphicon glyphicon-pencil align-right" ng-click="change = true"></button>
+    <button class="glyphicon glyphicon-remove align-right" ng-click="change = true"></button>
+  </div>
 
-    <div ng-show="change === true">
-      <input type="text" class="form-control" placeholder="Message belongs to." ng-model="message.belongsTo">
-      <input type="text" class="form-control" placeholder="Text for the message." ng-model="message.text">
-      <button class="btn" ng-click="publisher.changeMessage(message); change = false">Save changed Message</button>
-    </div>
+  <div ng-show="change === true">
+    <input class="form-control" ng-model="message.belongsTo" placeholder="Message belongs to." type="text">
+    <input class="form-control" ng-model="message.text" placeholder="Text for the message." type="text">
+    <button class="btn" ng-click="publisher.changeMessage(message); change = false">Save changed Message</button>
+  </div>
 </div>
 
-<form name="newPost", enctype="multipart/form-data">
-  <input type="file" ngf-select ng-model="publisher.picFile" name="file"
-   accept="image/*" ngf-max-size="2MB" required>
+<form , enctype="multipart/form-data" name="newPost">
+  <input accept="image/*" name="file" ng-model="publisher.picFile" ngf-max-size="2MB" ngf-select required type="file">
 
-  <img ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile" class="thumb"> <button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>
-  <button type="submit" class="btn" ng-click="publisher.imageUpload()">Upload Image</button>
+  <img class="thumb" ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile">
+  <button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>
+  <button class="btn" ng-click="publisher.imageUpload()" type="submit">Upload Image</button>
 </form>
-<img src="uploads/test.jpg" alt="" />
+<img alt="" src="uploads/test.jpg"/>

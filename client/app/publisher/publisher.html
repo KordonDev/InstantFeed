@@ -4,13 +4,6 @@
   <input class="form-control" ng-model="publisher.newMessage.belongsTo" placeholder="Message belongs to." type="text">
   <textarea class="form-control" ng-model="publisher.newMessage.text" placeholder="Text for the message." rows="3"></textarea>
 
-  <!--    <dif ngf-drop ngf-select ng-model="publisher.picture" class="drop-box"
-            ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
-            accept="image/*"
-            ngf-pattern="'image/*'">Drop images here or click to upload</div> -->
-
-  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-
   <span class="btn">
     <button class="btn btn-primary" ng-click="publisher.publishMessage()" type="submit">Publish message</button>
   </span>
@@ -33,10 +26,18 @@
   </div>
 </div>
 
-<form , enctype="multipart/form-data" name="newPost">
-  <input accept="image/*" name="file" ng-model="publisher.picFile" ngf-max-size="2MB" ngf-select required type="file">
+<form enctype="multipart/form-data" name="newPost">
 
-  <img class="thumb" ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile">
+  <div ngf-drop ngf-select ng-model="publisher.picFile" class="drop-box"
+    ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="false"
+    accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
+
+  <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+<!--  <img class="thumb" ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile">
+
+  <input accept="image/*" name="file" ng-model="publisher.picFile" ngf-max-size="2MB" ngf-select required type="file">-->
+
   <button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>
   <button class="btn" ng-click="publisher.imageUpload()" type="submit">Upload Image</button>
 </form>

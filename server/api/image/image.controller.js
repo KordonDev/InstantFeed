@@ -23,6 +23,7 @@ exports.show = function(req, res) {
 
 // Creates a new image in the DB.
 exports.create = function(req, res) {
+  console.log(req);
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
     if (files.file === undefined || files.file.length === 0) {
@@ -30,6 +31,10 @@ exports.create = function(req, res) {
     }
     var imagePath = getFilePath(files.file[0].originalFilename);
     fs.writeFile(imagePath, files.file[0].path, function(err) {
+      if (err) {
+        console.log(err);
+        return res.json(500, err);
+      }
       return res.json(201, imagePath);
     });
   });

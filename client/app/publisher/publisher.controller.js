@@ -11,12 +11,16 @@ angular.module('instantFeedApp')
     });
 
     vm.imageUpload = function() {
+      console.log(vm.picFile);
       Upload.upload({
         url: 'http://localhost:9000/api/images',
         data: {
           file: vm.picFile
         },
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': vm.picFile.type
+        }
       }).then(function(response){
         console.log(response);
       });

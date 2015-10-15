@@ -3,12 +3,14 @@
 }
 
 .drop-box {
-  display: block;
+  float: left;
+  display: table-cell;
     background: #F8F8F8;
     border: 5px dashed #DDD;
-    width: 200px;
-    height: 65px;
+    width: 10%;
+    height: 10%;
     text-align: center;
+    vertical-align: middle;
     padding-top: 25px;
     margin: 10px;
 }
@@ -31,4 +33,9 @@ form .progress {
 .tile {
   background-color: #ecf0f1;
   margin: 10px 0;
+}
+
+textarea {
+  width: 80% !important;
+  margin: 10px;
 }

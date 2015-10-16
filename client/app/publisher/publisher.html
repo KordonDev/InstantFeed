@@ -31,7 +31,7 @@
 <div ng-repeat="message in publisher.messages | orderBy: 'message.timePublished' : true track by $index">
   <div class="well" ng-show="change !== true">
     <b>{{ message.belongsTo}}</b>
-    ({{ message.timePublished }}):
+    ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
     <br>
     {{ message.text }}
     <button class="glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>

@@ -10,29 +10,34 @@ angular.module('instantFeedApp')
       socket.syncUpdates('message', vm.messages);
     });
 
-    vm.imageUpload = function() {
-      console.log(vm.picFile);
-      Upload.upload({
+
+    vm.publishMessage = function() {
+      if (vm.newMessage.text === '' || vm.newMessage.belongsTo === '') {
+        return;
+      }
+    if (vm.newMessage.picture) {
+      uploadImage(vm.newMessage.picture)
+        .then(function(response) {
+          console.log(response.data);
+          return;
+        });
+    }
+    vm.newMessage.timePublished = new Date();
+    $http.post('/api/messages', vm.newMessage);
+    vm.newMessage = {};
+    };
+
+    function uploadImage(image) {
+      return Upload.upload({
         url: 'http://localhost:9000/api/images',
         data: {
-          file: vm.picFile
+          file: image
         },
         method: 'POST',
         headers: {
-          'Content-Type': vm.picFile.type
+          'Content-Type': image.type
         }
-      }).then(function(response){
-        console.log(response);
       });
-    }
-
-    vm.publishMessage = function() {
-      if (vm.newMessage.text == '') {
-        return;
-      }
-      vm.newMessage.timePublished = new Date();
-      $http.post('/api/messages', vm.newMessage);
-      vm.newMessage = {};
     };
 
     vm.changeMessage = function(message) {

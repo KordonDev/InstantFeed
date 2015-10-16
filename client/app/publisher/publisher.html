@@ -5,7 +5,7 @@
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">
 
-    <div ngf-drop ngf-select ng-model="publisher.picFile" class="drop-box"
+    <div ngf-drop ngf-select ng-model="publisher.newMessage.picture" class="drop-box"
       ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="false"
       accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
@@ -18,8 +18,8 @@
   </span>
 </form>
 
+<div class="clear"></div>
 
-<div style="clear: both"/>
 
 <div ng-repeat="message in publisher.messages track by $index">
   <div class="well" ng-show="change !== true">
@@ -38,14 +38,6 @@
   </div>
 </div>
 
-<form enctype="multipart/form-data" name="newPost">
 
-
-<!--  <img class="thumb" ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile">
-
-  <input accept="image/*" name="file" ng-model="publisher.picFile" ngf-max-size="2MB" ngf-select required type="file">-->
-
-  <button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>
-  <button class="btn" ng-click="publisher.imageUpload()" type="submit">Upload Image</button>
-</form>
-<img alt="" src="uploads/test.jpg"/>
+<!--<img class="thumb" ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile">
+<button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>-->

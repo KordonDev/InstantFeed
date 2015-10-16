@@ -6,6 +6,7 @@ var multiparty = require('multiparty');
 var config = require('../../config/environment');
 var path = require('path');
 var uuid = require('uuid');
+var basePath = config.root + '/public/';
 //var Image = require('./image.model');
 
 // Get a single image
@@ -23,20 +24,23 @@ exports.show = function(req, res) {
 
 // Creates a new image in the DB.
 exports.create = function(req, res) {
-  console.log(req);
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
     if (files.file === undefined || files.file.length === 0) {
       return res.send(400);
     }
-    var imagePath = getFilePath(files.file[0].originalFilename);
-    fs.writeFile(imagePath, files.file[0].path, function(err) {
-      if (err) {
-        console.log(err);
-        return res.json(500, err);
+    fs.readFile(files.file[0].path, function(error, data) {
+      if (error) {
+        handleError(res, error);
       }
-      return res.json(201, imagePath);
-    });
+      var imagePath = getFilePath(files.file[0].originalFilename);
+      fs.writeFile(basePath + imagePath, data, function(err) {
+        if (err) {
+          handleError(res, error);
+        }
+        return res.json(201, imagePath);
+      });
+    })
   });
   /*
   Image.create(req.body, function(err, image) {
@@ -77,5 +81,5 @@ function handleError(res, err) {
 
 function getFilePath(filename) {
   var fileExtension = filename.split('.').pop();
-  return config.root + '/public/uploads/images/' + uuid.v4() + '.' + fileExtension;
+  return 'uploads/images/' + uuid.v4() + '.' + fileExtension;
 }

@@ -1,4 +1,4 @@
-<form>
+<form enctype="multipart/form-data">
 
   <label>Publish a new message:</label>
   <input class="form-control" ng-model="publisher.newMessage.belongsTo" placeholder="Message belongs to." type="text">
@@ -49,10 +49,3 @@
   <button class="btn" ng-click="publisher.imageUpload()" type="submit">Upload Image</button>
 </form>
 <img alt="" src="uploads/test.jpg"/>
-
-<div class="col-lg-6 col-md-4 col-sm-8 green">
-  a
-</div>
-<div class="col-lg-6 col-md-8 col-sm-4 blue">
-  a
-</div>

@@ -28,7 +28,7 @@
 <div class="clear"></div>
 
 
-<div ng-repeat="message in publisher.messages track by $index">
+<div ng-repeat="message in publisher.messages | orderBy: 'message.timePublished' : true track by $index">
   <div class="well" ng-show="change !== true">
     <b>{{ message.belongsTo}}</b>
     ({{ message.timePublished }}):

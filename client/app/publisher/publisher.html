@@ -5,17 +5,24 @@
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">
 
-    <div ngf-drop ngf-select ng-model="publisher.newMessage.picture" class="drop-box"
-      ngf-drag-over-class="dragover" ngf-multiple="false" ngf-allow-dir="false"
-      accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
+    <div ng-hide="publisher.image" ngf-drop ngf-select ng-model="publisher.image" class="drop-box"
+     ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+    <img class="thumb" ng-show="publisher.image" ngf-thumbnail="publisher.image">
+    <button ng-click="publisher.image = null" ng-show="publisher.image" class="glyphicon glyphicon-remove"></button>
   </div>
   <div class="col-lg-10 col-md-10 col-sm-12 right left">
+
+
     <textarea class="form-control messageText" ng-model="publisher.newMessage.text" placeholder="Text for the message." rows="4"></textarea>
+
   </div>
-  <span class="btn align-right">
+
+  <span class="btn float-right">
     <button class="btn btn-primary" ng-click="publisher.publishMessage()" type="submit">Publish message</button>
   </span>
+
 </form>
 
 <div class="clear"></div>
@@ -27,8 +34,8 @@
     ({{ message.timePublished }}):
     <br>
     {{ message.text }}
-    <button class="glyphicon glyphicon-pencil align-right" ng-click="change = true"></button>
-    <button class="glyphicon glyphicon-remove align-right" ng-click="change = true"></button>
+    <button class="glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>
+    <button class="glyphicon glyphicon-remove float-right" ng-click="change = true"></button>
   </div>
 
   <div ng-show="change === true">
@@ -37,7 +44,3 @@
     <button class="btn" ng-click="publisher.changeMessage(message); change = false">Save changed Message</button>
   </div>
 </div>
-
-
-<!--<img class="thumb" ng-show="newPost.file.$valid" ngf-thumbnail="publisher.picFile">
-<button ng-click="publisher.picFile = null" ng-show="publisher.picFile">Remove</button>-->

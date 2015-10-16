@@ -1,4 +1,4 @@
-.align-right {
+.float-right {
   float: right;
 }
 
@@ -15,8 +15,8 @@
     vertical-align: middle;
     margin-top: 1em;
 }
-.dragover {
-    border: 5px dashed blue;
+.drop-box:hover {
+    border: 5px dashed #66A3E0;
 }
 
 .left {
@@ -32,30 +32,13 @@
     height: 100px;
     float: none;
     position: relative;
-    top: 7px;
+    top: 1em;
 }
 
 form .progress {
     line-height: 15px;
 }
 
-.tile {
-  background-color: #ecf0f1;
-  margin: 10px 0;
-}
-
 .messageText {
   margin-top: 1em;
-}
-
-.absolute-wrapper {
-  position: relative;
-}
-
-.green {
-  background: green;
-}
-
-.blue {
-  background: blue;
 }

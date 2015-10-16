@@ -15,8 +15,8 @@ angular.module('instantFeedApp')
       if (vm.newMessage.text === '' || vm.newMessage.belongsTo === '') {
         return;
       }
-      if (vm.newMessage.picture) {
-        uploadImage(vm.newMessage.picture)
+      if (vm.image) {
+        uploadImage(vm.image)
           .then(function(response) {
             newMessage(response.data);
           });

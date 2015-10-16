@@ -3,19 +3,24 @@
 }
 
 .drop-box {
-  float: left;
-  display: table-cell;
     background: #F8F8F8;
     border: 5px dashed #DDD;
-    width: 10%;
-    height: 10%;
+    width: 100% !important;
+    height: 6em;
     text-align: center;
     vertical-align: middle;
-    padding-top: 25px;
-    margin: 10px;
+    margin-top: 1em;
 }
 .dragover {
     border: 5px dashed blue;
+}
+
+.left {
+  padding-left: 0%;
+}
+
+.right {
+  padding-right: 0%;
 }
 
 .thumb {
@@ -35,7 +40,18 @@ form .progress {
   margin: 10px 0;
 }
 
-textarea {
-  width: 80% !important;
-  margin: 10px;
+.messageText {
+  margin-top: 1em;
+}
+
+.absolute-wrapper {
+  position: relative;
+}
+
+.green {
+  background: green;
+}
+
+.blue {
+  background: blue;
 }

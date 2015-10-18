@@ -1,8 +1,10 @@
 node_modules
-public
+public/*
 .tmp
 .sass-cache
 .idea
 client/bower_components
 dist
 /server/config/local.env.js
+!public/uploads/images/
+public/uploads/images/*

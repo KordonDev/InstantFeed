@@ -8,9 +8,10 @@
     <b>{{ message.belongsTo}}</b>
     ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
     <br>
+    <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" />
     {{ message.text }}
-    <button class="glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>
-    <button class="glyphicon glyphicon-remove float-right" ng-click="change = true"></button>
+    <button class="btn glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>
+    <button class="btn btn-danger glyphicon glyphicon-remove float-right" ng-click="change = true"></button>
   </div>
 
   <div ng-show="change === true">

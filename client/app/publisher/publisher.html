@@ -1,32 +1,7 @@
-<form enctype="multipart/form-data">
+<label>Publish a new message:</label>
+<message-input submit-function="publisher.publishMessage(message, image)" submit-button-text="Publish message"> </message-input>
 
-  <label>Publish a new message:</label>
-  <input class="form-control" ng-model="publisher.newMessage.belongsTo" placeholder="Message belongs to." type="text">
-
-  <div class="col-lg-2 col-md-2 col-sm-6 left">
-
-    <div ng-hide="publisher.image" ngf-drop ngf-select ng-model="publisher.image" class="drop-box"
-     ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
-    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-
-    <img class="thumb" ng-show="publisher.image" ngf-thumbnail="publisher.image">
-    <button ng-click="publisher.image = null" ng-show="publisher.image" class="glyphicon glyphicon-remove"></button>
-  </div>
-  <div class="col-lg-10 col-md-10 col-sm-12 right left">
-
-
-    <textarea class="form-control messageText" ng-model="publisher.newMessage.text" placeholder="Text for the message." rows="4"></textarea>
-
-  </div>
-
-  <span class="btn float-right">
-    <button class="btn btn-primary" ng-click="publisher.publishMessage()" type="submit">Publish message</button>
-  </span>
-
-</form>
-
-<div class="clear"></div>
-
+{{test.text}}
 
 <div ng-repeat="message in publisher.messages | orderBy: 'message.timePublished' : true track by $index">
   <div class="well" ng-show="change !== true">

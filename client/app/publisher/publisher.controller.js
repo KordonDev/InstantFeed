@@ -11,17 +11,14 @@ angular.module('instantFeedApp')
     });
 
 
-    vm.publishMessage = function() {
-      if (vm.newMessage.text === '' || vm.newMessage.belongsTo === '') {
-        return;
-      }
-      if (vm.image) {
-        uploadImage(vm.image)
+    vm.publishMessage = function(message, image) {
+      if (image) {
+        uploadImage(image)
           .then(function(response) {
-            newMessage(response.data);
+            newMessage(message, response.data);
           });
       } else {
-        newMessage();
+        newMessage(message);
       }
     };
 
@@ -29,13 +26,12 @@ angular.module('instantFeedApp')
       $http.put('/api/messages/' + message._id, message);
     };
 
-    function newMessage(image) {
+    function newMessage(message, image) {
       if (image) {
-        vm.newMessage.picture = image;
+        message.picture = image;
       }
-      vm.newMessage.timePublished = new Date();
-      $http.post('/api/messages', vm.newMessage);
-      vm.newMessage = {};
+      message.timePublished = new Date();
+      $http.post('/api/messages', message);
     }
 
     function uploadImage(image) {

@@ -1,0 +1,25 @@
+<form enctype="multipart/form-data" ng-submit="submitFunction({message: message, image: image})">
+  <input required class="form-control" ng-model="message.belongsTo" placeholder="Message belongs to." type="text">
+
+  <div class="col-lg-2 col-md-2 col-sm-6 left">
+
+    <div ng-hide="image" ngf-drop ngf-select ng-model="image" class="drop-box"
+     ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
+    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+    <img class="thumb" ng-show="image" ngf-thumbnail="image">
+    <button ng-click="image = null" ng-show="image" class="glyphicon glyphicon-remove"></button>
+  </div>
+
+  <div class="col-lg-10 col-md-10 col-sm-12 right left">
+
+    <textarea required class="form-control messageText" ng-model="message.text" placeholder="Text for the message." rows="4"></textarea>
+
+  </div>
+  <span class="btn float-right">
+    <button class="btn btn-primary" type="submit">{{ submitButtonText }}</button>
+  </span>
+
+</form>
+
+<div class="clear"></div>

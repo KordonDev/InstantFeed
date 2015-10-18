@@ -26,17 +26,19 @@ exports.show = function(req, res) {
 exports.create = function(req, res) {
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
+    console.log(files);
     if (files.file === undefined || files.file.length === 0) {
       return res.send(400);
     }
     fs.readFile(files.file[0].path, function(error, data) {
       if (error) {
-        handleError(res, error);
+        return handleError(res, error);
       }
       var imagePath = getFilePath(files.file[0].originalFilename);
       fs.writeFile(basePath + imagePath, data, function(err) {
+    console.log(err);
         if (err) {
-          handleError(res, error);
+          return handleError(res, error);
         }
         return res.json(201, imagePath);
       });

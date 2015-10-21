@@ -3,11 +3,12 @@
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">
 
-    <div ng-hide="image" ngf-drop ngf-select ng-model="image" class="drop-box"
+    <div ng-hide="image || message.picture" ngf-drop ngf-select ng-model="image" class="drop-box"
      ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop images here or click to upload</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
-    <img class="thumb" ng-show="image" ngf-thumbnail="image">
+    <img class="thumb" ng-show="image && !message.picture" ngf-thumbnail="image">
+    <img class="thumb" ng-show="message.picture" ngf-thumbnail="message.picture">
     <button ng-click="image = null" ng-show="image" class="btn glyphicon glyphicon-remove"></button>
   </div>
 

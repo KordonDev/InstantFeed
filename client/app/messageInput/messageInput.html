@@ -1,4 +1,4 @@
-<form enctype="multipart/form-data" ng-submit="submitFunction({message: message, image: image})">
+<form enctype="multipart/form-data" ng-submit="submitFunction({message: message, image: image}); message = null; image = null;">
   <input required class="form-control" ng-model="message.belongsTo" placeholder="Message belongs to." type="text">
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">

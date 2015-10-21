@@ -22,11 +22,10 @@ exports.show = function(req, res) {
   });*/
 };
 
-// Creates a new image in the DB.
+// Creates a new image in public/upload.
 exports.create = function(req, res) {
   var form = new multiparty.Form();
   form.parse(req, function(err, fields, files) {
-    console.log(files);
     if (files.file === undefined || files.file.length === 0) {
       return res.send(400);
     }
@@ -36,7 +35,6 @@ exports.create = function(req, res) {
       }
       var imagePath = getFilePath(files.file[0].originalFilename);
       fs.writeFile(basePath + imagePath, data, function(err) {
-    console.log(err);
         if (err) {
           return handleError(res, error);
         }
@@ -44,11 +42,6 @@ exports.create = function(req, res) {
       });
     })
   });
-  /*
-  Image.create(req.body, function(err, image) {
-    if(err) { return handleError(res, err); }
-    return res.json(201, image);
-  });*/
 };
 
 // Updates an existing image in the DB.

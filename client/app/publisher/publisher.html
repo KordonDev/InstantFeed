@@ -1,8 +1,6 @@
 <label>Publish a new message:</label>
 <message-input submit-function="publisher.publishMessage(message, image)" submit-button-text="Publish message"> </message-input>
 
-{{test.text}}
-
 <div ng-repeat="message in publisher.messages | orderBy: 'message.timePublished' : true track by $index">
   <div class="well" ng-show="change !== true">
     <b>{{ message.belongsTo}}</b>
@@ -15,8 +13,9 @@
   </div>
 
   <div ng-show="change === true">
-    <input class="form-control" ng-model="message.belongsTo" placeholder="Message belongs to." type="text">
+    <message-input image="message.image" message="message" submit-button-text="Change message" submit-function="publisher.changeMessage(message, image); change = false;"> </message-input>
+    <!--<input class="form-control" ng-model="message.belongsTo" placeholder="Message belongs to." type="text">
     <input class="form-control" ng-model="message.text" placeholder="Text for the message." type="text">
-    <button class="btn" ng-click="publisher.changeMessage(message); change = false">Save changed Message</button>
+    <button class="btn" ng-click="publisher.changeMessage(message); change = false">Save changed Message</button>-->
   </div>
 </div>

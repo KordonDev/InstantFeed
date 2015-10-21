@@ -1,50 +1,22 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('PublisherController', function ($scope, $http, Upload, socket) {
+  .controller('PublisherController', function ($scope, $http, socket, messageService) {
     var vm = this;
     vm.messages = [];
 
-    $http.get('/api/messages').success(function(messages) {
+    messageService.getMessages().then(function(messages) {
       vm.messages = messages;
       socket.syncUpdates('message', vm.messages);
     });
 
-
     vm.publishMessage = function(message, image) {
-      if (image) {
-        uploadImage(image)
-          .then(function(response) {
-            newMessage(message, response.data);
-          });
-      } else {
-        newMessage(message);
-      }
-    };
-
-    vm.changeMessage = function(message) {
-      $http.put('/api/messages/' + message._id, message);
-    };
-
-    function newMessage(message, image) {
-      if (image) {
-        message.picture = image;
-      }
       message.timePublished = new Date();
-      $http.post('/api/messages', message);
-    }
+      messageService.addMessage(message, image);
+    };
 
-    function uploadImage(image) {
-      return Upload.upload({
-        url: 'http://localhost:9000/api/images',
-        data: {
-          file: image
-        },
-        method: 'POST',
-        headers: {
-          'Content-Type': image.type
-        }
-      });
+    vm.changeMessage = function(message, image) {
+      messageService.updateMessage(message, image);
     };
 
     $scope.$on('$destroy', function () {

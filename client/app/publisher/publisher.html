@@ -11,7 +11,6 @@
     <button class="btn btn-danger glyphicon glyphicon-remove float-right" ng-click=""></button>
     <button class="btn glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>
   </div>
-
   <div ng-show="change === true">
     <message-input message="message" submit-button-text="Change message" submit-function="publisher.changeMessage(message, image); change = false;"> </message-input>
   </div>

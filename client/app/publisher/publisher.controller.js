@@ -7,6 +7,7 @@ angular.module('instantFeedApp')
 
     messageService.getMessages().then(function(messages) {
       vm.messages = messages;
+      console.log(messages);
       socket.syncUpdates('message', vm.messages);
     });
 

@@ -34,7 +34,28 @@ angular.module('instantFeedApp')
     };
 
     function updateMessage(message, image) {
+      if (message.removePicture) {
+        imageResource.delete({imagePath: message.picture}).$promise
+          .then(function() {
+            message.picture = "";
+            if (image) {
+              return uploadImageAndUpdateMessage(message, image);
+            }
+            return messageResource.update(message);
+          });
+      }
+      if (image) {
+        return uploadImageAndUpdateMessage(message, image);
+      }
       return messageResource.update(message);
+    }
+
+    function uploadImageAndUpdateMessage(message, image) {
+      uploadImage(image)
+        .then(function(response) {
+          message.picture = response.data;
+          return messageResource.update(message);
+        });
     }
 
     function uploadImage(image) {

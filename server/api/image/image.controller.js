@@ -60,13 +60,12 @@ exports.update = function(req, res) {
 
 // Deletes a image from the DB.
 exports.destroy = function(req, res) {
-  Image.findById(req.params.id, function (err, image) {
-    if(err) { return handleError(res, err); }
-    if(!image) { return res.send(404); }
-    image.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.send(204);
-    });
+  fs.unlink(basePath + req.query.imagePath, function(error) {
+    if (error) {
+      console.log(error);
+      return handleError(res, error);
+    }
+      return res.json(204);
   });
 };
 

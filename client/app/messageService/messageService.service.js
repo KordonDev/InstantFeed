@@ -39,7 +39,7 @@ angular.module('instantFeedApp')
 
     function uploadImage(image) {
       return Upload.upload({
-        url: 'http://localhost:9000/api/images',
+        url: '/api/images',
         data: {
           file: image
         },

@@ -2,16 +2,26 @@
 <message-input submit-function="publisher.publishMessage(message, image)" submit-button-text="Publish message"> </message-input>
 
 <div ng-repeat="message in publisher.messages | orderBy: 'message.timePublished' : true track by $index">
-  <div class="well" ng-show="change !== true">
+  <div class="well feed" ng-show="change !== true">
+
     <b>{{ message.belongsTo}}</b>
     ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
     <br>
-    <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" />
-    {{ message.text }}
-    <button class="btn btn-danger glyphicon glyphicon-remove float-right" ng-click=""></button>
-    <button class="btn glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>
+    <div class="content">
+      <div class="pictureContainer">
+        <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" ng-click="publisher.openModal(message.picture)"/>
+      </div>
+      {{ message.text }}
+      <button class="btn btn-danger glyphicon glyphicon-remove float-right" ng-click=""></button>
+      <button class="btn glyphicon glyphicon-pencil float-right" ng-click="change = true"></button>
+    </div>
+
   </div>
   <div ng-show="change === true">
     <message-input message="message" submit-button-text="Change message" submit-function="publisher.changeMessage(message, image); change = false;"> </message-input>
   </div>
+</div>
+
+<div class="clear">
+
 </div>

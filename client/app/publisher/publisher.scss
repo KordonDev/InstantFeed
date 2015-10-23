@@ -14,10 +14,22 @@
   padding-right: 0%;
 }
 
-.thumb {
-    width: 100px;
-    height: 100px;
-    float: none;
-    position: relative;
-    top: 1em;
+.pictureContainer .thumb {
+  width: 100%;
+  cursor: pointer;
+}
+
+.pictureContainer {
+  float: left;
+  width: 100px;
+  height: auto;
+  margin-right: 1em;
+}
+
+.feed {
+  overflow: auto;
+}
+
+.content {
+  margin-top: 1em;
 }

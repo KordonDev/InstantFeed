@@ -7,14 +7,17 @@ angular.module('instantFeedApp', [
   'btford.socket-io',
   'ui.router',
   'ui.bootstrap',
-  'ngFileUpload'
+  'ngFileUpload',
+  'bootstrapLightbox'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
     $httpProvider.interceptors.push('authInterceptor');
+
+    LightboxProvider.templateUrl = '../components/lightbox/lightbox.html';
   })
 
   .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {

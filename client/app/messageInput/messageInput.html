@@ -7,8 +7,8 @@
      ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop image here or click to upload</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
-    <img class="thumb" ng-show="image" ngf-thumbnail="image">
-    <img class="thumb" ng-show="message.picture && !message.removePicture" ngf-thumbnail="message.picture">
+      <img class="inputThumb" ng-if="image" ngf-thumbnail="image">
+      <img class="inputThumb" ng-show="message.picture && !message.removePicture" ngf-thumbnail="message.picture">
     <button type="button" ng-click="image = null; message.removePicture = true;" ng-show="image || (!message.removePicture && message.picture)" class="btn glyphicon glyphicon-remove"></button>
   </div>
 

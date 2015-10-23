@@ -11,18 +11,30 @@
     </div>
     <div collapse="navbar.isCollapsed" class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in navbar.menu" ng-class="{active: navbar.isActive(item.link)}">
+        <li ng-repeat="item in navbar.menu" ng-class="{active: navbar.isActive(item.link)}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
             <a ng-href="{{item.link}}">{{item.title}}</a>
         </li>
-        <li ng-show="navbar.isAdmin()" ng-class="{active: navbar.isActive('/admin')}"><a href="/admin">Admin</a></li>
+        <li ng-show="navbar.isAdmin()" ng-class="{active: navbar.isActive('/admin')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="/admin">Admin</a>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}"><a href="/signup">Sign up</a></li>
-        <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}"><a href="/login">Login</a></li>
-        <li ng-show="navbar.isLoggedIn()"><p class="navbar-text">Hello {{ navbar.getCurrentUser().name }}</p> </li>
-        <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}"><a href="/settings"><span class="glyphicon glyphicon-cog"></span></a></li>
-        <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/logout')}"><a href="" ng-click="navbar.logout()">Logout</a></li>
+        <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="/signup">Sign up</a>
+        </li>
+        <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="/login">Login</a>
+        </li>
+        <li ng-show="navbar.isLoggedIn()">
+          <p class="navbar-text">Hello {{ navbar.getCurrentUser().name }}</p>
+        </li>
+        <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/settings')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="/settings"><span class="glyphicon glyphicon-cog"></span></a>
+        </li>
+        <li ng-show="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/logout')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="" ng-click="navbar.logout()">Logout</a>
+        </li>
       </ul>
 
     </div>

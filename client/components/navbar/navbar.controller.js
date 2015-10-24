@@ -6,14 +6,12 @@ angular.module('instantFeedApp')
     vm.menu = [{
       'title': 'Home',
       'link': '/'
-    }, {
-      'title': 'Publish',
-      'link': '/publisher'
     }];
 
     vm.isCollapsed = true;
     vm.isLoggedIn = Auth.isLoggedIn;
     vm.isAdmin = Auth.isAdmin;
+    vm.isPublisher = Auth.isPublisher;
     vm.getCurrentUser = Auth.getCurrentUser;
 
     vm.logout = function() {

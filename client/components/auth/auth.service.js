@@ -137,6 +137,15 @@ angular.module('instantFeedApp')
       },
 
       /**
+       * Check if a user is an publisher
+       *
+       * @return {Boolean}
+       */
+      isPublisher: function() {
+        return (currentUser.role === 'admin' || currentUser.role === 'publisher');
+      },
+
+      /**
        * Get auth token
        */
       getToken: function() {

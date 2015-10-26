@@ -5,31 +5,3 @@
 .clear {
   clear: both;
 }
-
-.left {
-  padding-left: 0%;
-}
-
-.right {
-  padding-right: 0%;
-}
-
-.pictureContainer .thumb {
-  width: 100%;
-  cursor: pointer;
-}
-
-.pictureContainer {
-  float: left;
-  width: 100px;
-  height: auto;
-  margin-right: 1em;
-}
-
-.feed {
-  overflow: auto;
-}
-
-.content {
-  margin-top: 1em;
-}

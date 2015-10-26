@@ -1,0 +1,19 @@
+.pictureContainer {
+  float: left;
+  width: 100px;
+  height: auto;
+  margin-right: 1em;
+}
+
+.feed {
+  overflow: auto;
+}
+
+.pictureContainer .thumb {
+  width: 100%;
+  cursor: pointer;
+}
+
+.content {
+  margin-top: 1em;
+}

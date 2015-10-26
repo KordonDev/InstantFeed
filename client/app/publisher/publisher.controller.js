@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('PublisherController', function ($scope, $http, socket, messageService, Lightbox) {
+  .controller('PublisherController', function ($scope, socket, messageService) {
     var vm = this;
     vm.messages = [];
 
@@ -13,14 +13,6 @@ angular.module('instantFeedApp')
     vm.publishMessage = function(message, image) {
       message.timePublished = new Date();
       messageService.addMessage(message, image);
-    };
-
-    vm.changeMessage = function(message, image) {
-      messageService.updateMessage(message, image);
-    };
-
-    vm.openModal = function(pictureUrl) {
-      Lightbox.openModal([pictureUrl], 0);
     };
 
     $scope.$on('$destroy', function () {

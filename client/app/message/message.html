@@ -1,0 +1,19 @@
+<div class="well feed" ng-show="change !== true">
+  <b>{{ message.belongsTo}}</b>
+  ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
+  <br>
+  <div class="content">
+    <div class="pictureContainer">
+      <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" ng-click="messageController.openModal(message.picture)"/>
+    </div>
+    {{ message.text }}
+    {{ messageController.isPublisher() }}
+    <div class="float-right" ng-show="messageController.isPublisher()">
+      <button class="btn glyphicon glyphicon-pencil" ng-click="change = true"></button>
+      <button class="btn btn-danger glyphicon glyphicon-remove" ng-click=""></button>
+    </div>
+  </div>
+</div>
+<div ng-show="change === true">
+  <message-input message-data="message" submit-button-text="Change message" submit-function="messageController.changeMessage(message, image); change = false;"> </message-input>
+</div>

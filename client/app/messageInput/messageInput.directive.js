@@ -6,7 +6,7 @@ angular.module('instantFeedApp')
       scope: {
         submitFunction: '&',
         submitButtonText: '@',
-        message: '=',
+        message: '=messageData',
         image: '='
       },
       templateUrl: 'app/messageInput/messageInput.html',

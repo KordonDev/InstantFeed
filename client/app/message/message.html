@@ -9,7 +9,7 @@
     {{ message.text }}
     <div class="float-right" ng-show="messageController.isPublisher()">
       <button class="btn glyphicon glyphicon-pencil" ng-click="change = true"></button>
-      <button class="btn btn-danger glyphicon glyphicon-remove" ng-click=""></button>
+      <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="messageController.deleteMessage(message)"></button>
     </div>
   </div>
 </div>

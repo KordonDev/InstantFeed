@@ -5,7 +5,8 @@ angular.module('instantFeedApp')
     var messageService =  {
       getMessages: getMessages,
       addMessage: addMessage,
-      updateMessage: updateMessage
+      updateMessage: updateMessage,
+      deleteMessage: deleteMessage
     };
 
     var messageResource = $resource('/api/messages/:id', {id: '@_id'}, {update: {method: 'PUT'}});
@@ -69,6 +70,10 @@ angular.module('instantFeedApp')
           'Content-Type': image.type
         }
       });
+    }
+
+    function deleteMessage(message) {
+      return messageResource.delete({id:message._id}).$promise;
     }
 
     return messageService;

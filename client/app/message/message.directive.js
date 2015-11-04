@@ -19,6 +19,10 @@ angular.module('instantFeedApp')
         vm.changeMessage = function(message, image) {
           messageService.updateMessage(message, image);
         };
+
+        vm.deleteMessage = function(message) {
+          messageService.deleteMessage(message);
+        };
       },
       controllerAs: 'messageController',
       link: function (scope, element, attrs) {

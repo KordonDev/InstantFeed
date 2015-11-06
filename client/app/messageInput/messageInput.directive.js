@@ -3,6 +3,7 @@
 angular.module('instantFeedApp')
   .directive('messageInput', function () {
     return {
+      transclude: true,
       scope: {
         submitFunction: '&',
         submitButtonText: '@',
@@ -12,6 +13,7 @@ angular.module('instantFeedApp')
       templateUrl: 'app/messageInput/messageInput.html',
       restrict: 'EA',
       link: function (scope, element, attrs) {
+
       }
     };
   });

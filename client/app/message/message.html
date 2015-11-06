@@ -1,4 +1,4 @@
-<div class="well feed" ng-show="change !== true">
+<div class="well feed" ng-show="message.change !== true">
   <b>{{ message.belongsTo}}</b>
   ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
   <br>
@@ -8,11 +8,13 @@
     </div>
     {{ message.text }}
     <div class="float-right" ng-show="messageController.isPublisher()">
-      <button class="btn glyphicon glyphicon-pencil" ng-click="change = true"></button>
+      <button class="btn glyphicon glyphicon-pencil" ng-click="message.change = true"></button>
       <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="messageController.deleteMessage(message)"></button>
     </div>
   </div>
 </div>
-<div ng-show="change === true">
-  <message-input message-data="message" submit-button-text="Change message" submit-function="messageController.changeMessage(message, image); change = false;"> </message-input>
+<div ng-show="message.change === true">
+  <message-input message-data="message" submit-button-text="Change message" submit-function="messageController.changeMessage(message, image); message.change = false;">
+    <button type="button" class="btn btn-danger" name="cancelChange" ng-click="message.change = false">Drop Change</button>
+  </message-input>
 </div>

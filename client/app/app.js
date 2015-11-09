@@ -20,7 +20,7 @@ angular.module('instantFeedApp', [
     LightboxProvider.templateUrl = '../components/lightbox/lightbox.html';
   })
 
-  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+  .factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location, loginModal) {
     return {
       // Add authorization token to headers
       request: function (config) {
@@ -34,7 +34,7 @@ angular.module('instantFeedApp', [
       // Intercept 401s and redirect you to login
       responseError: function(response) {
         if(response.status === 401) {
-          $location.path('/login');
+          loginModal.open();
           // remove any stale tokens
           $cookieStore.remove('token');
           return $q.reject(response);
@@ -51,7 +51,7 @@ angular.module('instantFeedApp', [
     $rootScope.$on('$stateChangeStart', function (event, next) {
       Auth.isLoggedInAsync(function(loggedIn) {
         if (next.authenticate && !loggedIn) {
-          $location.path('/login');
+          loginModal.open();
         }
       });
     });

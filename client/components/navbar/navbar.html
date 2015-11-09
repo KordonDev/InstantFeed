@@ -26,8 +26,8 @@
         <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/signup')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
           <a href="/signup">Sign up</a>
         </li>
-        <li ng-hide="navbar.isLoggedIn()" ng-class="{active: navbar.isActive('/login')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
-          <a href="/login">Login</a>
+        <li ng-hide="navbar.isLoggedIn()" ng-click="navbar.isCollapsed = !navbar.isCollapsed; navbar.openLoginModal()">
+          <a class="link">Login</a>
         </li>
         <li ng-show="navbar.isLoggedIn()">
           <p class="navbar-text">Hello {{ navbar.getCurrentUser().name }}</p>

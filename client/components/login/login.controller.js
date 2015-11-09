@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('LoginController', function (Auth, $location) {
+  .controller('LoginController', function (Auth, $modalInstance) {
     var vm = this;
     vm.user = {};
     vm.errors = {};
@@ -15,8 +15,8 @@ angular.module('instantFeedApp')
           password: vm.user.password
         })
         .then( function() {
-          // Logged in, redirect to home
-          $location.path('/');
+          // Logged in, close modal
+          $modalInstance.close();
         })
         .catch( function(err) {
           vm.errors.other = err.message;

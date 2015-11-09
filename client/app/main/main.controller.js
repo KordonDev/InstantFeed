@@ -8,7 +8,6 @@ angular.module('instantFeedApp')
     messageService.getMessages().then(function(messages) {
       vm.messages = messages;
       socket.syncUpdates('message', vm.messages);
-      console.log(messages);
     });
 
     $scope.$on('$destroy', function () {

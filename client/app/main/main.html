@@ -3,6 +3,7 @@
 <div ng-repeat="feedMessage in main.messages | orderBy: 'feedMessage.timePublished' : true track by $index">
   <message message-data="feedMessage"></message>
 </div>
+
 <div ng-hide="main.messages.length > 0">
   <h3>No feeds published.</h3>
 </div>

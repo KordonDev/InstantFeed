@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('NavbarController', function ($location, Auth) {
+  .controller('NavbarController', function ($location, Auth, loginModal) {
     var vm = this;
     vm.menu = [{
       'title': 'Home',
@@ -16,7 +16,11 @@ angular.module('instantFeedApp')
 
     vm.logout = function() {
       Auth.logout();
-      $location.path('/login');
+      $location.path('/');
+    };
+
+    vm.openLoginModal = function() {
+      loginModal.open();
     };
 
     vm.isActive = function(route) {

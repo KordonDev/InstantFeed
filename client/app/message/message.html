@@ -1,7 +1,9 @@
 <div class="well feed" ng-show="message.change !== true">
-  <b>{{ message.belongsTo}}</b>
-  ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
+  <b>{{ message.belongsToName }}</b>
   <br>
+  <hr/>
+  <b>{{ message.headline }}</b>
+  ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
   <div class="content">
     <div class="pictureContainer">
       <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" ng-click="messageController.openModal(message.picture)"/>

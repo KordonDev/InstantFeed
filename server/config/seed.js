@@ -8,6 +8,7 @@
 var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
 var Message = require('../api/message/message.model');
+var Topic = require('../api/topic/topic.model');
 
 Thing.find({}).remove(function() {
   Thing.create({
@@ -56,4 +57,14 @@ User.find({}).remove(function() {
 
 Message.find({}).remove(function() {
   console.log('Messages removed');
+});
+
+Topic.find({}).remove(function() {
+  Topic.create({
+    name: 'Football',
+    active: true
+  }, {
+    name: 'Handball',
+    active: false
+  });
 });

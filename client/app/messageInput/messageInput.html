@@ -1,5 +1,11 @@
 <form enctype="multipart/form-data" ng-submit="submitFunction({message: message, image: image}); message = null; image = null;">
-  <input required class="form-control" ng-model="message.belongsTo" placeholder="Message belongs to." type="text">
+  <div ng-repeat="topic in messageInput.activeTopics">
+    <label class="radio-inline">
+      <input required type="radio" ng-value="topic._id" ng-model="message.belongsTo" />
+      {{topic.name}}
+    </label>
+  </div>
+  <input required class="form-control" ng-model="message.headline" placeholder="Headline" type="text">
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">
 

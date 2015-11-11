@@ -47,7 +47,6 @@ angular.module('instantFeedApp')
           } else {
             array.push(item);
           }
-
           cb(event, item, array);
         });
 

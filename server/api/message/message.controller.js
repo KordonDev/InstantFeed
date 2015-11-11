@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Message = require('./message.model');
+var Topic = require('../topic/topic.model');
 
 // Get list of messages
 exports.index = function(req, res) {

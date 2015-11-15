@@ -12,7 +12,11 @@ angular.module('instantFeedApp')
 
     vm.publishMessage = function(message, image) {
       message.timePublished = new Date();
-      messageService.addMessage(message, image);
+      return messageService.addMessage(message, image)
+        .then(function(response) {
+          return response;
+        }
+      );
     };
 
     $scope.$on('$destroy', function () {

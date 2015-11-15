@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('messageService', function ($resource, Upload, topicService) {
+  .factory('messageService', function ($resource, Upload, topicService, $q) {
     var messageService =  {
       getMessages: getMessages,
       addMessage: addMessage,
@@ -33,17 +33,15 @@ angular.module('instantFeedApp')
 
     function addMessage(message, image) {
       if (message.belongsTo) {
-        topicService.topicExistsAndIsAcitve(message.belongsTo).then(function() {
-          if (image) {
-            uploadImage(image)
-              .then(function(response) {
-                message.picture = response.data;
-                return messageResource.save(message).$promise;
-              });
-          } else {
-            return messageResource.save(message).$promise;
-          }
-        });
+        if (image) {
+          return uploadImage(image)
+            .then(function(response) {
+              message.picture = response.data;
+              return messageResource.save(message).$promise;
+            });
+        } else {
+          return messageResource.save(message).$promise;
+        }
       }
     };
 

@@ -1,33 +1,34 @@
-<form enctype="multipart/form-data" ng-submit="submitFunction({message: message, image: image}); message = null; image = null;">
+<form enctype="multipart/form-data" ng-submit="messageInput.submitForm()">
   <div ng-repeat="topic in messageInput.activeTopics">
     <label class="radio-inline">
-      <input required type="radio" ng-value="topic._id" ng-model="message.belongsTo" />
+      <input required type="radio" ng-value="topic._id" ng-model="messageInput.messageCopy.belongsTo" />
       {{topic.name}}
     </label>
   </div>
-  <input required class="form-control" ng-model="message.headline" placeholder="Headline" type="text">
+  <input required class="form-control" ng-model="messageInput.messageCopy.headline" placeholder="Headline" type="text">
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">
 
-    <div ng-hide="image || (message.picture && !message.removePicture)" ngf-drop ngf-select ng-model="image" class="drop-box"
+    <div ng-hide="messageInput.image || (messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture)" ngf-drop ngf-select ng-model="messageInput.image" class="drop-box"
      ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop image here or click to upload</div>
     <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
-      <img class="inputThumb" ng-if="image" ngf-thumbnail="image">
-      <img class="inputThumb" ng-show="message.picture && !message.removePicture" ngf-thumbnail="message.picture">
-    <button type="button" ng-click="image = null; message.removePicture = true;" ng-show="image || (!message.removePicture && message.picture)" class="btn glyphicon glyphicon-remove"></button>
+      <img class="inputThumb" ng-if="messageInput.image" ngf-thumbnail="messageInput.image">
+      <img class="inputThumb" ng-show="messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture" ngf-thumbnail="messageInput.messageCopy.picture">
+    <button type="button" ng-click="messageInput.image = null; messageInput.messageCopy.removePicture = true;"
+          ng-show="messageInput.image || (!messageInput.messageCopy.removePicture && messageInput.messageCopy.picture)" class="btn glyphicon glyphicon-remove"></button>
   </div>
 
   <div class="col-lg-10 col-md-10 col-sm-12 right left">
 
-    <textarea required class="form-control messageText" ng-model="message.text" placeholder="Text for the message." rows="4"></textarea>
+    <textarea required class="form-control messageText" ng-model="messageInput.messageCopy.text" placeholder="Text for the message." rows="4"></textarea>
 
   </div>
   <span class="btn float-right">
     <div ng-transclude>
 
     </div>
-    <button class="btn btn-primary" type="submit">{{ submitButtonText }}</button>
+    <button class="btn btn-primary" type="submit">{{ messageInput.submitButtonText }}</button>
   </span>
 
 </form>

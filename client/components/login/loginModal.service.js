@@ -13,15 +13,6 @@ angular.module('instantFeedApp')
         controller: 'LoginController as login',
         size: 'sm'
       });
-
-      loginModal.opened.then(function() {
-        $timeout(function() {
-          var element = $window.document.getElementById('email');
-          if (element) {
-            element.focus();
-          }
-        });
-      })
     }
 
   });

@@ -17,6 +17,9 @@
         <li ng-show="navbar.isPublisher()" ng-class="{active: navbar.isActive('/publisher')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
           <a href="/publisher">Publisher</a>
         </li>
+        <li ng-show="navbar.isPublisher()" ng-class="{active: navbar.isActive('/topic')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="/topic">Topic</a>
+        </li>
         <li ng-show="navbar.isAdmin()" ng-class="{active: navbar.isActive('/admin')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
           <a href="/admin">Admin</a>
         </li>

@@ -8,7 +8,8 @@ angular.module('instantFeedApp', [
   'ui.router',
   'ui.bootstrap',
   'ngFileUpload',
-  'bootstrapLightbox'
+  'bootstrapLightbox',
+  'frapontillo.bootstrap-switch'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider

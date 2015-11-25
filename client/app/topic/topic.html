@@ -1,0 +1,12 @@
+<h2>Manage topics</h2>
+
+<ul class="list-group">
+  <li class="list-group-item" ng-repeat="topic in topicController.topics">
+    <strong>{{topic.name}}</strong>
+
+    <div class="topic-active-switch">
+      <input type="checkbox" switch-on-text="active" switch-off-text="inactive" switch-size="mini" bs-switch name="active" ng-model="topic.active">
+
+    </div>
+  </li>
+</ul>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('messageService', function ($resource, Upload, topicService, $q) {
+  .factory('messageService', function ($resource, Upload, topicService) {
     var messageService =  {
       getMessages: getMessages,
       addMessage: addMessage,
@@ -29,7 +29,7 @@ angular.module('instantFeedApp')
           }
           return [];
         });
-    };
+    }
 
     function addMessage(message, image) {
       if (message.belongsTo) {
@@ -43,7 +43,7 @@ angular.module('instantFeedApp')
           return messageResource.save(message).$promise;
         }
       }
-    };
+    }
 
     function updateMessage(message, image) {
       topicService.topicExistsAndIsAcitve(message.belongsTo).then(function(data) {

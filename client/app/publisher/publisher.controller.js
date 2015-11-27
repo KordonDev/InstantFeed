@@ -19,6 +19,10 @@ angular.module('instantFeedApp')
       );
     };
 
+    vm.test = function() {
+      console.log('hel');
+    };
+
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('message');
     });

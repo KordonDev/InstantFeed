@@ -1,12 +1,22 @@
 <h2>Manage topics</h2>
 
 <ul class="list-group">
-  <li class="list-group-item" ng-repeat="topic in topicController.topics">
-    <strong>{{topic.name}}</strong>
+  <li class="list-group-item topic-list-item" ng-repeat="topic in topicController.topics">
+    <div ng-if="!topic.edit" class="topic-item">
+      <strong>{{topic.name}}</strong>
+      <button class="btn btn-default btn-sm" ng-click="topicController.startEdit(topic)"><span class="glyphicon glyphicon-pencil" /></button>
+    </div>
+
+    <form ng-if="topic.edit" ng-submit="topicController.saveTopic(topic)">
+      <input class="form-control topic-input" type="text" ng-model="topic.name" ng-change="topicController.test()">
+      <button class="btn btn-danger topic-input-button" type="button" ng-click="topicController.cancelEdit(topic)">Cancel</button>
+      <button class="btn topic-input-button" type="submit">Save</button>
+    </form>
 
     <div class="topic-active-switch">
-      <input type="checkbox" switch-on-text="active" switch-off-text="inactive" switch-size="mini" bs-switch name="active" ng-model="topic.active">
-
+      <input type="checkbox" switch-on-text="active" switch-off-text="inactive" switch-size="small" bs-switch name="active" ng-model="topic.active"
+        switch-change="topicController.update(topic)">
     </div>
+
   </li>
 </ul>

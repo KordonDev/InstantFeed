@@ -8,10 +8,11 @@ angular.module('instantFeedApp')
       createTopic: createTopic,
       topicExistsAndIsAcitve: topicExistsAndIsAcitve,
       get: get,
-      topicNameInSocket: topicNameInSocket
+      topicNameInSocket: topicNameInSocket,
+      update: update
     };
 
-    var topicResource = $resource('/api/topics/:active/:id');
+    var topicResource = $resource('/api/topics/:active/:id', {id: '@_id'}, {update: {method: 'PUT'}});
 
     function getTopics() {
       return topicResource.query().$promise;
@@ -27,6 +28,10 @@ angular.module('instantFeedApp')
 
     function get(id) {
       return topicResource.get({id: id}).$promise;
+    }
+
+    function update(topic) {
+      return topicResource.update(topic).$promise;
     }
 
     function topicExistsAndIsAcitve(topicId) {

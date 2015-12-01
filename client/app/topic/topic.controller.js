@@ -15,9 +15,14 @@ angular.module('instantFeedApp')
       socket.syncUpdates('topic', vm.topics);
     });
 
+    vm.addTopic = function(topic) {
+      topic.active = true;
+      topicService.save(topic);
+      topic = undefined;
+    };
+
     vm.saveTopic = function(topic) {
       topicService.update(topic);
-      console.log('aehai');
       topic.edit = undefined;
     };
 

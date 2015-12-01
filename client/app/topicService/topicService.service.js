@@ -5,7 +5,7 @@ angular.module('instantFeedApp')
     var topicService = {
       getTopics: getTopics,
       getActiveTopics: getActiveTopics,
-      createTopic: createTopic,
+      save: save,
       topicExistsAndIsAcitve: topicExistsAndIsAcitve,
       get: get,
       topicNameInSocket: topicNameInSocket,
@@ -22,7 +22,7 @@ angular.module('instantFeedApp')
       return topicResource.query({active: 'active'}).$promise;
     }
 
-    function createTopic(topic) {
+    function save(topic) {
       return topicResource.save(topic).$promise;
     }
 

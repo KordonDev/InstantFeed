@@ -1,3 +1,11 @@
+<h2>Add new topics</h2>
+<div class="add-topic">
+  <form ng-submit="topicController.addTopic(topic)">
+    <input class="form-control topic-input" type="text" ng-model="topic.name" ng-change="topicController.test()">
+    <button class="btn topic-input-button" type="submit">Add</button>
+  </form>
+</div>
+
 <h2>Manage topics</h2>
 
 <ul class="list-group">

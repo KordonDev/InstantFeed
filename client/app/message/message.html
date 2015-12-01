@@ -1,7 +1,7 @@
 <div class="well feed" ng-show="message.change !== true">
-  <b>{{ message.belongsToName }}</b>
-  <br>
-  <hr/>
+  <div class="topic">
+    <h4>{{ message.belongsToName }}</h4>
+  </div>
   <b>{{ message.headline }}</b>
   ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
   <div class="content">

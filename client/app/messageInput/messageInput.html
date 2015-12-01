@@ -1,7 +1,7 @@
 <form enctype="multipart/form-data" ng-submit="messageInput.submitForm()">
   <div ng-repeat="topic in messageInput.activeTopics">
     <label class="radio-inline">
-      <input required type="radio" ng-value="topic._id" ng-model="messageInput.messageCopy.belongsTo" />
+      <input required name="topicRadio" type="radio" ng-value="topic._id" ng-model="messageInput.messageCopy.belongsTo" />
       {{topic.name}}
     </label>
   </div>

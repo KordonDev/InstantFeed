@@ -7,8 +7,15 @@ angular.module('instantFeedApp')
 
     messageService.getMessages().then(function(messages) {
       vm.messages = messages;
-      socket.syncUpdates('message', vm.messages, topicService.topicNameInSocket);
+      socket.syncUpdates('message', vm.messages, getTopicsAndNotify);
     });
+
+    var getTopicsAndNotify = function(event, message, array) {
+      if (event === 'created' || event === 'updated') {
+        topicService.topicNameInSocket(event, message, array);
+        messageService.notify(message);
+      }
+    };
 
     vm.publishMessage = function(message, image) {
       message.timePublished = new Date();

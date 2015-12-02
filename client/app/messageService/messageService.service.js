@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('messageService', function ($resource, Upload, topicService, webNotification) {
+  .factory('messageService', function ($resource, Upload, topicService, webNotification, $window) {
     var messageService =  {
       getMessages: getMessages,
       addMessage: addMessage,
@@ -94,13 +94,14 @@ angular.module('instantFeedApp')
       webNotification.showNotification(message.headline, {
         body: message.text,
         icon: 'favicon.ico',
-      /*  onClick: function onNotificationClicked() {
-            console.log('Notification clicked.');
-        },*/
+        onClick: function onNotificationClicked() {
+          $window.location.hash = message._id;
+          $window.focus();
+        },
         autoClose: 10000
       }, function onShow(error) {
         if (error) {
-          console.error('Unable to show notification: ' + error.message);
+          alert('Unable to show notification: ' + error.message);
         }
       });
     }

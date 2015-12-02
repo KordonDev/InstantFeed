@@ -1,9 +1,9 @@
-<div class="well feed" ng-show="message.change !== true">
+<div class="well feed" ng-show="message.change !== true" id="{{message._id}}">
   <div class="topic">
     <h4>{{ message.belongsToName }}</h4>
   </div>
   <b>{{ message.headline }}</b>
-  ({{ message.timePublished | date: 'd.M.yyyy H:mm'}}):
+  ({{ message.timePublished | date: 'dd.MM.yyyy HH:mm'}}):
   <div class="content">
     <div class="pictureContainer">
       <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" ng-click="messageController.openModal(message.picture)"/>

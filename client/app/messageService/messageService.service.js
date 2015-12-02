@@ -1,12 +1,13 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('messageService', function ($resource, Upload, topicService) {
+  .factory('messageService', function ($resource, Upload, topicService, webNotification) {
     var messageService =  {
       getMessages: getMessages,
       addMessage: addMessage,
       updateMessage: updateMessage,
-      deleteMessage: deleteMessage
+      deleteMessage: deleteMessage,
+      notify: notify
     };
 
     var messageResource = $resource('/api/messages/:id', {id: '@_id'}, {update: {method: 'PUT'}});
@@ -46,11 +47,11 @@ angular.module('instantFeedApp')
     }
 
     function updateMessage(message, image) {
-      topicService.topicExistsAndIsAcitve(message.belongsTo).then(function(data) {
+      topicService.topicExistsAndIsAcitve(message.belongsTo).then(function() {
         if (message.removePicture) {
           imageResource.delete({imagePath: message.picture}).$promise
             .then(function() {
-              message.picture = "";
+              message.picture = '';
               if (image) {
                 return uploadImageAndUpdateMessage(message, image);
               }
@@ -87,6 +88,21 @@ angular.module('instantFeedApp')
 
     function deleteMessage(message) {
       return messageResource.delete({id:message._id}).$promise;
+    }
+
+    function notify(message) {
+      webNotification.showNotification(message.headline, {
+        body: message.text,
+        icon: 'favicon.ico',
+      /*  onClick: function onNotificationClicked() {
+            console.log('Notification clicked.');
+        },*/
+        autoClose: 10000
+      }, function onShow(error) {
+        if (error) {
+          console.error('Unable to show notification: ' + error.message);
+        }
+      });
     }
 
     return messageService;

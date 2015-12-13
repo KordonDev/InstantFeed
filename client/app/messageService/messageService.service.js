@@ -1,32 +1,24 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('messageService', function ($resource, Upload, topicService, webNotification, $window) {
+  .factory('Message', function ($resource, Upload, topicService, webNotification, $window, $filter, socket, $q) {
     var messageService =  {
-      getMessages: getMessages,
-      addMessage: addMessage,
-      updateMessage: updateMessage,
-      deleteMessage: deleteMessage,
-      notify: notify
+      get: getMessages,
+      add: addMessage,
+      update: updateMessage,
+      delete: deleteMessage,
+      format: format,
+      sortAndCheckTopic: sortAndCheckTopic
     };
 
     var messageResource = $resource('/api/messages/:id', {id: '@_id'}, {update: {method: 'PUT'}});
     var imageResource = $resource('/api/images/');
 
-    function getMessages(){
+    function getMessages() {
       return messageResource.query().$promise
-        .then(function(result) {
-          if (result && result) {
-            for(var i in result) {
-              (function(i) {
-                if (result[i].belongsTo) {
-                  topicService.get(result[i].belongsTo).then(function(topic) {
-                    result[i].belongsToName = topic.name;
-                  });
-                }
-              })(i);
-            }
-            return result;
+        .then(function(messages) {
+          if (messages) {
+            return format('all', null, messages);
           }
           return [];
         });
@@ -65,6 +57,23 @@ angular.module('instantFeedApp')
       });
     }
 
+    function deleteMessage(message) {
+      return messageResource.delete({id:message._id}).$promise;
+    }
+
+    function format(event, message, messages) {
+      if (event === 'created' || event === 'updated') {
+        topicService.setTopicName(message);
+        notify(message);
+      }
+      if (event === 'all') {
+        angular.forEach(messages, function(message) {
+          topicService.setTopicName(message);
+        });
+        return sortAndCheckTopic(messages);
+      }
+    }
+
     function uploadImageAndUpdateMessage(message, image) {
       uploadImage(image)
         .then(function(response) {
@@ -86,9 +95,7 @@ angular.module('instantFeedApp')
       });
     }
 
-    function deleteMessage(message) {
-      return messageResource.delete({id:message._id}).$promise;
-    }
+
 
     function notify(message) {
       webNotification.showNotification(message.headline, {
@@ -104,6 +111,19 @@ angular.module('instantFeedApp')
           alert('Unable to show notification: ' + error.message);
         }
       });
+    }
+
+    function sortAndCheckTopic(messages) {
+      var orderByDate = $filter('orderBy');
+      messages = orderByDate(messages, 'timePublished').reverse();
+      for (var i = 1; i < messages.length; i++) {
+        if (messages[i].belongsTo === messages[i-1].belongsTo) {
+          messages[i].sameTopic = true;
+        } else {
+          messages[i].sameTopic = false;
+        }
+      }
+      return messages;
     }
 
     return messageService;

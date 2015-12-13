@@ -1,21 +1,19 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('MainController', function ($scope, socket, messageService, topicService) {
+  .controller('MainController', function ($scope, socket, Message) {
     var vm = this;
     vm.messages = [];
 
-    messageService.getMessages().then(function(messages) {
+    Message.get().then(function(messages) {
       vm.messages = messages;
-      socket.syncUpdates('message', vm.messages, getTopicsAndNotify);
+      socket.syncUpdates('message', vm.messages, formatMessages);
     });
 
-    var getTopicsAndNotify = function(event, message, array) {
-      if (event === 'created' || event === 'updated') {
-        topicService.topicNameInSocket(event, message, array);
-        messageService.notify(message);
-      }
-    };
+    function formatMessages(event, message, array) {
+      Message.format(event, message, array);
+      vm.messages = Message.sortAndCheckTopic(array);
+    }
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('message');

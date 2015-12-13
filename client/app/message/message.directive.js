@@ -8,7 +8,7 @@ angular.module('instantFeedApp')
       scope: {
         message: '=messageData'
       },
-      controller: function(messageService, Auth, Lightbox) {
+      controller: function(Message, Auth, Lightbox) {
         var vm = this;
         vm.isPublisher = Auth.isPublisher;
 
@@ -17,11 +17,11 @@ angular.module('instantFeedApp')
         };
 
         vm.changeMessage = function(message, image) {
-          messageService.updateMessage(message, image);
+          Message.update(message, image);
         };
 
         vm.deleteMessage = function(message) {
-          messageService.deleteMessage(message);
+          Message.delete(message);
         };
       },
       controllerAs: 'messageController',

@@ -1,6 +1,6 @@
 <h1>Current Feed</h1>
 
-<div ng-repeat="feedMessage in main.messages | orderBy: 'feedMessage.timePublished' : true track by $index">
+<div ng-repeat="feedMessage in main.messages track by $index">
   <message message-data="feedMessage"></message>
 </div>
 

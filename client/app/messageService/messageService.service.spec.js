@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: messageService', function () {
+describe('Service: Message', function () {
 
   // load the service's module
   beforeEach(module('instantFeedApp'));
 
   // instantiate service
-  var messageService;
-  beforeEach(inject(function (_messageService_) {
-    messageService = _messageService_;
+  var Message;
+  beforeEach(inject(function (_Message_) {
+    Message = _Message_;
   }));
 
   it('should do something', function () {
-    expect(!!messageService).toBe(true);
+    expect(!!Message).toBe(true);
   });
 
 });

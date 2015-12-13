@@ -8,7 +8,7 @@ angular.module('instantFeedApp')
       save: save,
       topicExistsAndIsAcitve: topicExistsAndIsAcitve,
       get: get,
-      topicNameInSocket: topicNameInSocket,
+      setTopicName: setTopicName,
       update: update
     };
 
@@ -38,12 +38,10 @@ angular.module('instantFeedApp')
       return topicResource.get({active:'active', id: topicId}).$promise;
     }
 
-    function topicNameInSocket(event, message, array) {
-      if (event === 'created' || event === 'updated') {
-        topicService.get(message.belongsTo).then(function(topic) {
-          message.belongsToName = topic.name;
-        });
-      }
+    function setTopicName(message) {
+      topicService.get(message.belongsTo).then(function(topic) {
+        message.belongsToName = topic.name;
+      });
     }
 
     return topicService;

@@ -11,8 +11,15 @@
   margin-top: 20px;
 }
 
-.sameTopicContainer {
+.lastSameTopic {
   margin-top: 0px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.nextSameTopic {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .pictureContainer .thumb {

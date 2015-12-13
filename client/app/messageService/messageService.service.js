@@ -116,11 +116,20 @@ angular.module('instantFeedApp')
     function sortAndCheckTopic(messages) {
       var orderByDate = $filter('orderBy');
       messages = orderByDate(messages, 'timePublished').reverse();
-      for (var i = 1; i < messages.length; i++) {
-        if (messages[i].belongsTo === messages[i-1].belongsTo) {
-          messages[i].sameTopic = true;
-        } else {
-          messages[i].sameTopic = false;
+      for (var i = 0; i < messages.length; i++) {
+        if (i > 0) {
+          if (messages[i].belongsTo === messages[i-1].belongsTo) {
+            messages[i].lastSameTopic = true;
+          } else {
+            messages[i].sameTopic = false;
+          }
+        }
+        if (i < messages.length-1) {
+          if (messages[i].belongsTo === messages[i+1].belongsTo) {
+            messages[i].nextSameTopic = true;
+          } else {
+            messages[i].nextSameTopic = false;
+          }
         }
       }
       return messages;

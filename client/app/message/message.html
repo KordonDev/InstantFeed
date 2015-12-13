@@ -1,5 +1,5 @@
-<div class="well feed" ng-class="{sameTopicContainer : message.sameTopic}" ng-show="message.change !== true" id="{{message._id}}">
-  <div class="topic" ng-hide="message.sameTopic">
+<div class="well feed" ng-class="{nextSameTopic : message.nextSameTopic, lastSameTopic: message.lastSameTopic}" ng-show="message.change !== true" id="{{message._id}}">
+  <div class="topic" ng-hide="message.lastSameTopic">
     <h4>{{ message.belongsToName }}</h4>
   </div>
   <b>{{ message.headline }}</b>

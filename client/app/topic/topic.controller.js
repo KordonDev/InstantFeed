@@ -7,11 +7,6 @@ angular.module('instantFeedApp')
 
     topicService.getTopics().then(function(topics) {
       vm.topics = topics;
-      for (var i = 0; i < vm.topics.length; i++) {
-        $scope.$watch(vm.topics[i].active, function() {
-        //  topicService.update();
-        });
-      }
       socket.syncUpdates('topic', vm.topics);
     });
 
@@ -34,6 +29,10 @@ angular.module('instantFeedApp')
     vm.cancelEdit = function(topic) {
         topic.edit = undefined;
         topic.name = topic.oldName;
+    };
+
+    vm.update = function(topic) {
+      topicService.update(topic);
     };
 
     $scope.$on('$destroy', function() {

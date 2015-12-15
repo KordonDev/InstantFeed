@@ -19,7 +19,7 @@
     "ng-file-upload": "~9.0.9",
     "ng-file-upload-shim": "~9.0.9",
     "angular-bootstrap-lightbox": "~0.9.0",
-    "angular-bootstrap-switch": "~0.4.1",
+    "angular-bootstrap-switch": "https://github.com/KordonDev/angular-bootstrap-switch.git#develop",
     "angular-web-notification": "~0.0.46"
   },
   "devDependencies": {

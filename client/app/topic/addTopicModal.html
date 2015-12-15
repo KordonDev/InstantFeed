@@ -1,0 +1,19 @@
+<div id="loginModal">
+
+  <div class="modal-header">
+    <h3 class="modal-title">Add topic</h3>
+  </div>
+  <div class="modal-body">
+      <form ng-submit="topicController.addTopic(topic)">
+        <div class="form-group">
+          <label>Topicname *:</label>
+          <input class="form-control" type="text" required ng-model="topic.name">
+        </div>
+
+        <div>
+          <button class="btn btn-default topic-add-button" type="submit">Add</button>
+        </div>
+
+      </form>
+  </div>
+</div>

@@ -1,30 +1,24 @@
-<h2>Add new topics</h2>
-<div class="add-topic">
-  <form ng-submit="topicController.addTopic(topic)">
-    <input class="form-control topic-input" type="text" ng-model="topic.name" ng-change="topicController.test()">
-    <button class="btn topic-input-button" type="submit">Add</button>
-  </form>
-</div>
-
 <h2>Manage topics</h2>
-
 <ul class="list-group">
-  <li class="list-group-item topic-list-item" ng-repeat="topic in topicController.topics">
+  <li class="list-group-item topic-list-item" ng-repeat="topic in topicController.topics | orderBy: 'name' track by topic._id">
     <div ng-if="!topic.edit" class="topic-item">
       <strong>{{topic.name}}</strong>
-      <button class="btn btn-default btn-sm" ng-click="topicController.startEdit(topic)"><span class="glyphicon glyphicon-pencil" /></button>
     </div>
 
     <form ng-if="topic.edit" ng-submit="topicController.saveTopic(topic)">
       <input class="form-control topic-input" type="text" ng-model="topic.name" ng-change="topicController.test()">
       <button class="btn btn-danger topic-input-button" type="button" ng-click="topicController.cancelEdit(topic)">Cancel</button>
-      <button class="btn topic-input-button" type="submit">Save</button>
+      <button class="btn btn-success topic-input-button" type="submit">Save</button>
     </form>
 
     <div class="topic-active-switch">
+      <button class="btn btn-default btn-sm" ng-if="!topic.edit" ng-click="topicController.startEdit(topic)"><span class="glyphicon glyphicon-pencil" /></button>
       <input type="checkbox" switch-on-text="active" switch-off-text="inactive" switch-size="small" bs-switch name="active" ng-model="topic.active"
         switch-changed="topicController.update(topic)">
     </div>
 
+  </li>
+  <li class="list-group-item topic-list-item">
+    <button type="button" class="btn btn-default btn-open-add-topic" ng-click="topicController.openAddTopic()">+</button>
   </li>
 </ul>

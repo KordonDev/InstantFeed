@@ -8,7 +8,7 @@ angular.module('instantFeedApp')
 
     function open() {
       var $modal = $injector.get('$modal');
-      var loginModal = $modal.open({animation: true,
+      $modal.open({animation: true,
         templateUrl: 'components/login/loginModal.html',
         controller: 'LoginController as login',
         size: 'sm'

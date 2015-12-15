@@ -8,17 +8,33 @@
 
 .topic-list-item {
   overflow: hidden;
+
+  strong {
+    line-height: 2em;
+  }
 }
+
 
 .topic-input {
   float: left;
   width: auto;
 }
 
+.modal-body {
+  overflow-y: hidden;
+}
+
+
+
 .topic-input-button {
   float: left;
 }
 
-h2 {
-  clear: both;
+.topic-add-button {
+  display: inline-block;
+  float: right;
+}
+
+.btn-open-add-topic {
+  margin-left: 0px;
 }

@@ -32,3 +32,7 @@
 .btn {
   margin-left: 12px;
 }
+
+.active {
+  @extend .btn-info
+}

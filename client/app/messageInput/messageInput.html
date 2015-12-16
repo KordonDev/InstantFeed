@@ -1,10 +1,6 @@
 <form enctype="multipart/form-data" ng-submit="messageInput.submitForm()">
-  <div ng-repeat="topic in messageInput.activeTopics">
-    <label class="radio-inline">
-      <input required name="topicRadio" type="radio" ng-value="topic._id" ng-model="messageInput.messageCopy.belongsTo" />
-      {{topic.name}}
-    </label>
-  </div>
+  <button ng-repeat="topic in messageInput.activeTopics track by topic._id" ng-class="{active: messageInput.messageCopy.belongsTo === topic._id}"
+      type="button" class="btn btn-primary-outline" ng-click="messageInput.messageCopy.belongsTo = topic._id">{{ topic.name }}</button>
   <input required class="form-control" ng-model="messageInput.messageCopy.headline" placeholder="Headline" type="text">
 
   <div class="col-lg-2 col-md-2 col-sm-6 left">

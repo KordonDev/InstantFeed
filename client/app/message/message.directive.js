@@ -17,7 +17,7 @@ angular.module('instantFeedApp')
         };
 
         vm.changeMessage = function(message, image) {
-          Message.update(message, image);
+          return Message.update(message, image);
         };
 
         vm.deleteMessage = function(message) {

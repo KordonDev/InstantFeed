@@ -13,16 +13,20 @@ angular.module('instantFeedApp')
       bindToController: true,
       controller: function($scope, $element, topicService) {
         var vm = this;
-        vm.activeTopics;
+        vm.activeTopics = [];
         vm.messageCopy = angular.copy(vm.message);
 
         vm.submitForm = function() {
+          if ($scope.messageForm.$valid) {
           vm.submitFunction({message: vm.messageCopy, image: vm.image})
             .then(function(response) {
               vm.messageCopy = null;
               vm.image = null;
-          });
-        }
+              $scope.messageForm.$setPristine();
+              $scope.messageForm.$setUntouched();
+            });
+          }
+        };
 
         topicService.getActiveTopics().then(function(topics) {
           vm.activeTopics = topics;

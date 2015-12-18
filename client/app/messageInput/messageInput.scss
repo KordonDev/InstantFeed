@@ -34,5 +34,34 @@
 }
 
 .active {
-  @extend .btn-info
+  @extend .btn-info;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.messageForm-submit {
+  margin-top: 10px;
+}
+
+.flex-topic {
+  align-self: flex-start;
+  margin-left: 0px;
+  margin-bottom: 10px;
+}
+
+.message-form-group {
+  @extend .form-group;
+  margin-bottom: 0px;
+}
+
+.help-block {
+  margin-bottom: 5px;
+}
+
+.glyph-without-label {
+  top: 0px;
 }

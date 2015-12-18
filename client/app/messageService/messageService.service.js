@@ -39,9 +39,9 @@ angular.module('instantFeedApp')
     }
 
     function updateMessage(message, image) {
-      topicService.topicExistsAndIsAcitve(message.belongsTo).then(function() {
+      return topicService.topicExistsAndIsAcitve(message.belongsTo).then(function() {
         if (message.removePicture) {
-          imageResource.delete({imagePath: message.picture}).$promise
+          return imageResource.delete({imagePath: message.picture}).$promise
             .then(function() {
               message.picture = '';
               if (image) {

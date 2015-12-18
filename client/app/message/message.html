@@ -16,7 +16,7 @@
   </div>
 </div>
 <div ng-if="message.change === true">
-  <message-input message-data="message" submit-button-text="Change message" submit-function="messageController.changeMessage(message, image); message.change = false;">
+  <message-input message-data="message" submit-button-text="Change message" submit-function="messageController.changeMessage(message, image)">
     <button type="button" class="btn btn-danger" name="cancelChange" ng-click="message.change = false">Drop Change</button>
   </message-input>
 </div>

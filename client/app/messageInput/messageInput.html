@@ -1,31 +1,53 @@
-<form enctype="multipart/form-data" ng-submit="messageInput.submitForm()">
-  <button ng-repeat="topic in messageInput.activeTopics track by topic._id" ng-class="{active: messageInput.messageCopy.belongsTo === topic._id}"
-      type="button" class="btn btn-primary-outline" ng-click="messageInput.messageCopy.belongsTo = topic._id">{{ topic.name }}</button>
-  <input required class="form-control" ng-model="messageInput.messageCopy.headline" placeholder="Headline" type="text">
+<form enctype="multipart/form-data" novalidate ng-submit="messageInput.submitForm()" name="messageForm">
+  <div class="message-form-group" ng-class="{'has-error has-feedback': messageForm.topic.$invalid && messageForm.$dirty}">
+    <label>Select topic*:</label>
+    <p ng-show="messageForm.topic.$invalid && messageForm.$dirty" class="help-block">
+      <span class="glyphicon glyphicon-remove form-control-feedback glyph-without-label" aria-hidden="true"></span>
+      Selecting a topic is required.
+    </p>
+    <div class="flex-container">
+      <input type="radio" name="topic" ng-model="messageInput.messageCopy.belongsTo" required ng-hide="true">
+      <button ng-repeat="topic in messageInput.activeTopics | orderBy: 'name' track by topic._id" ng-class="{active: messageInput.messageCopy.belongsTo === topic._id}"
+          type="button" name="topic" required="messageInput.messageCopy.belongsTo" class="btn btn-primary-outline flex-topic"
+           ng-click="messageInput.messageCopy.belongsTo = topic._id">{{ topic.name }}</button>
+    </div>
+  </div>
 
-  <div class="col-lg-2 col-md-2 col-sm-6 left">
+  <div class="message-form-group">
+    <label class="control-label">Write a message*:</label>
+    <div ng-class="{'has-error has-feedback': messageForm.headline.$invalid && messageForm.headline.$touched}">
+      <input required class="form-control" name="headline" ng-model="messageInput.messageCopy.headline" placeholder="Headline" type="text">
+      <p ng-show="messageForm.headline.$invalid && messageForm.headline.$touched" class="help-block">
+        <span class="glyphicon glyphicon-remove form-control-feedback glyph-without-label" aria-hidden="true"></span>
+        A headline is required.
+      </p>
+    </div>
 
-    <div ng-hide="messageInput.image || (messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture)" ngf-drop ngf-select ng-model="messageInput.image" class="drop-box"
-     ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop image here or click to upload</div>
-    <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+    <div class="col-lg-2 col-md-2 col-sm-6 left">
+      <div ng-hide="messageInput.image || (messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture)" ngf-drop ngf-select ng-model="messageInput.image" class="drop-box"
+      ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop image here or click to upload</div>
+      <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
       <img class="inputThumb" ng-if="messageInput.image" ngf-thumbnail="messageInput.image">
       <img class="inputThumb" ng-show="messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture" ngf-thumbnail="messageInput.messageCopy.picture">
-    <button type="button" ng-click="messageInput.image = null; messageInput.messageCopy.removePicture = true;"
-          ng-show="messageInput.image || (!messageInput.messageCopy.removePicture && messageInput.messageCopy.picture)" class="btn glyphicon glyphicon-remove"></button>
+      <button type="button" ng-click="messageInput.image = null; messageInput.messageCopy.removePicture = true;"
+      ng-show="messageInput.image || (!messageInput.messageCopy.removePicture && messageInput.messageCopy.picture)" class="btn glyphicon glyphicon-remove"></button>
+    </div>
+
+    <div class="col-lg-10 col-md-10 col-sm-12 right left" ng-class="{'has-error has-feedback': messageForm.text.$invalid && messageForm.text.$touched}">
+      <textarea required class="form-control messageText" ng-model="messageInput.messageCopy.text" placeholder="Text for the message." rows="4" name="text"></textarea>
+      <p ng-show="messageForm.text.$invalid && messageForm.text.$touched" class="help-block">
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+        A text is required.
+      </p>
+    </div>
   </div>
-
-  <div class="col-lg-10 col-md-10 col-sm-12 right left">
-
-    <textarea required class="form-control messageText" ng-model="messageInput.messageCopy.text" placeholder="Text for the message." rows="4"></textarea>
-
-  </div>
-  <span class="btn float-right">
-    <button class="btn btn-primary float-right" type="submit">{{ messageInput.submitButtonText }}</button>
+  <div class="messageForm-submit float-right">
+    <button class="btn btn-primary float-right" ng-disabled="messageForm.$invalid" type="submit">{{ messageInput.submitButtonText }}</button>
     <div ng-transclude class="float-right">
 
     </div>
-  </span>
+  </div>
 
 </form>
 

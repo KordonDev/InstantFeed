@@ -12,18 +12,18 @@ angular.module('instantFeedApp')
     });
 
     vm.saveTopic = function(topic) {
+      topic.name = topic.newName;
       topicService.update(topic);
       topic.edit = undefined;
     };
 
     vm.startEdit = function(topic) {
+      topic.newName = topic.name;
       topic.edit = true;
-      topic.oldName = topic.name;
     };
 
     vm.cancelEdit = function(topic) {
         topic.edit = undefined;
-        topic.name = topic.oldName;
     };
 
     vm.update = function(topic) {
@@ -51,8 +51,10 @@ angular.module('instantFeedApp')
         topic.active = true;
         topicService.save(topic);
         topic = undefined;
-        //var $modalInstance = $injector.get('$modalInstance');
-        //debugger;
+        $modalInstance.close();
+      };
+
+      vm.cancel = function() {
         $modalInstance.close();
       };
 

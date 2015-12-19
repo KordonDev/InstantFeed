@@ -4,17 +4,21 @@
     <h3 class="modal-title">Add topic</h3>
   </div>
   <div class="modal-body">
-      <form ng-submit="topicController.addTopic(topic)">
-        <div class="form-group">
-          <label>Topicname *:</label>
-          <input class="form-control" type="text" required ng-model="topic.name" autofocus="">
+      <form ng-submit="topicController.addTopic(topic)" novalidate name="topicForm">
+        <div class="form-group" ng-class="{'has-error has-feedback': topicForm.name.$invalid && topicForm.name.$touched}">
+          <label class="control-label">Topicname *:</label>
+          <input class="form-control" type="text" name="name" required ng-model="topic.name" autofocus="">
+          <p ng-show="topicForm.name.$invalid && topicForm.name.$touched" class="help-block">
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+            A name is required.
+          </p>
+          <br/ ng-hide="topicForm.name.$invalid && topicForm.name.$touched">
         </div>
 
         <div>
-          <button class="btn btn-success topic-add-button" type="submit">Add</button>
-          <button class="btn btn-danger topic-add-button">Cancel</button>
+          <button class="btn btn-success topic-add-button" ng-disabled="topicForm.$invalid" type="submit">Add</button>
+          <button type="button" class="btn btn-danger topic-add-button" ng-click="topicController.cancel()">Cancel</button>
         </div>
-
       </form>
   </div>
 </div>

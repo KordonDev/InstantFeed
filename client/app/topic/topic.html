@@ -5,20 +5,27 @@
       <strong>{{topic.name}}</strong>
     </div>
 
-    <form ng-if="topic.edit" ng-submit="topicController.saveTopic(topic)">
-      <input class="form-control topic-input" type="text" ng-model="topic.name" ng-change="topicController.test()">
-      <button class="btn btn-danger topic-input-button" type="button" ng-click="topicController.cancelEdit(topic)">Cancel</button>
-      <button class="btn btn-success topic-input-button" type="submit">Save</button>
+    <form ng-if="topic.edit" ng-submit="topicController.saveTopic(topic)" name="editTopicForm">
+      <div class="clearfix" ng-class="{'has-error has-feedback': editTopicForm.name.$invalid && editTopicForm.name.$touched}">
+        <input class="form-control topic-input" name="name" required type="text" ng-model="topic.newName" ng-change="topicController.test()">
+        <button class="btn btn-danger topic-input-button" type="button" ng-click="topicController.cancelEdit(topic)">Cancel</button>
+        <button class="btn btn-success topic-input-button" type="submit" ng-disabled="editTopicForm.$invalid">Save</button>
+      </div>
+      <p ng-show="editTopicForm.name.$invalid && editTopicForm.name.$touched" class="help-block">
+        A name is required.
+      </p>
     </form>
 
-    <div class="topic-active-switch">
-      <button class="btn btn-default btn-sm" ng-if="!topic.edit" ng-click="topicController.startEdit(topic)"><span class="glyphicon glyphicon-pencil" /></button>
+    <div class="topic-active-switch" ng-if="!topic.edit">
+      <button class="btn btn-default btn-sm" ng-click="topicController.startEdit(topic)"><span class="glyphicon glyphicon-pencil" /></button>
       <input type="checkbox" switch-on-text="active" switch-off-text="inactive" switch-size="small" bs-switch name="active" ng-model="topic.active"
-        switch-changed="topicController.update(topic)">
+      switch-changed="topicController.update(topic)">
     </div>
 
   </li>
   <li class="list-group-item topic-list-item">
-    <button type="button" class="btn btn-default btn-open-add-topic" ng-click="topicController.openAddTopic()">+</button>
+    <button type="button" class="btn btn-default btn-open-add-topic" ng-click="topicController.openAddTopic()">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
   </li>
 </ul>

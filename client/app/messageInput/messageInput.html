@@ -1,6 +1,6 @@
 <form enctype="multipart/form-data" novalidate ng-submit="messageInput.submitForm()" name="messageForm">
   <div class="message-form-group" ng-class="{'has-error has-feedback': messageForm.topic.$invalid && messageForm.$dirty}">
-    <label>Select topic*:</label>
+    <label class="control-label">Select topic*:</label>
     <p ng-show="messageForm.topic.$invalid && messageForm.$dirty" class="help-block">
       <span class="glyphicon glyphicon-remove form-control-feedback glyph-without-label" aria-hidden="true"></span>
       Selecting a topic is required.

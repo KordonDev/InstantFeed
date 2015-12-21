@@ -40,7 +40,7 @@ angular.module('instantFeedApp')
 
     function setTopicName(message) {
       topicService.get(message.belongsTo).then(function(topic) {
-        message.belongsToName = topic.name;
+        message.topic = topic;
       });
     }
 

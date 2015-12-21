@@ -46,11 +46,18 @@ angular.module('instantFeedApp')
   angular.module('instantFeedApp')
     .controller('TopicController.modal', function(topicService, $modalInstance) {
       var vm = this;
+      vm.topic = {};
+
+      function cleanTopic() {
+        vm.topic = {};
+        vm.topic.color = 'rgba(240,103,103, 0.4)';
+      }
+      cleanTopic();
 
       vm.addTopic = function(topic) {
         topic.active = true;
         topicService.save(topic);
-        topic = undefined;
+        cleanTopic();
         $modalInstance.close();
       };
 

@@ -16,7 +16,6 @@
 
 
 .topic-input {
-  float: left;
   width: auto;
 }
 
@@ -37,4 +36,8 @@
 
 .btn-open-add-topic {
   margin-left: 0px;
+}
+
+.btn-form-control {
+  display: block !important;
 }

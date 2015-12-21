@@ -1,6 +1,7 @@
-<div class="well feed" ng-class="{nextSameTopic : message.nextSameTopic, lastSameTopic: message.lastSameTopic}" ng-show="message.change !== true" id="{{message._id}}">
+<div class="well feed-well feed" ng-class="{nextSameTopic : message.nextSameTopic, lastSameTopic: message.lastSameTopic}" ng-show="message.change !== true"
+    style="background-color: {{message.topic.color}}" id="{{message._id}}">
   <div class="topic" ng-hide="message.lastSameTopic">
-    <h4>{{ message.belongsToName }}</h4>
+    <h4>{{ message.topic.name }}</h4>
   </div>
   <b>{{ message.headline }}</b>
   ({{ message.timePublished | date: 'dd.MM.yyyy HH:mm'}}):

@@ -62,9 +62,11 @@ Message.find({}).remove(function() {
 Topic.find({}).remove(function() {
   Topic.create({
     name: 'Football',
+    color: 'rgba(26,190,25,0.4)',
     active: true
   }, {
     name: 'Handball',
+    color: 'rgba(240,103,103, 0.4)',
     active: false
   });
 });

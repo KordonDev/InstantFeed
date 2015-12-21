@@ -1,19 +1,27 @@
 <h2>Manage topics</h2>
 <ul class="list-group">
-  <li class="list-group-item topic-list-item" ng-repeat="topic in topicController.topics | orderBy: 'name' track by topic._id">
+  <li class="list-group-item topic-list-item" style="background-color: {{topic.color}}" ng-repeat="topic in topicController.topics | orderBy: 'name' track by topic._id">
     <div ng-if="!topic.edit" class="topic-item">
       <strong>{{topic.name}}</strong>
     </div>
 
     <form ng-if="topic.edit" ng-submit="topicController.saveTopic(topic)" name="editTopicForm">
-      <div class="clearfix" ng-class="{'has-error has-feedback': editTopicForm.name.$invalid && editTopicForm.name.$touched}">
+      <div class="form-group" ng-class="{'has-error has-feedback': editTopicForm.name.$invalid && editTopicForm.name.$touched}">
+        <label class="control-label">Name:</label>
         <input class="form-control topic-input" name="name" required type="text" ng-model="topic.newName" ng-change="topicController.test()">
-        <button class="btn btn-danger topic-input-button" type="button" ng-click="topicController.cancelEdit(topic)">Cancel</button>
-        <button class="btn btn-success topic-input-button" type="submit" ng-disabled="editTopicForm.$invalid">Save</button>
+        <p ng-show="editTopicForm.name.$invalid && editTopicForm.name.$touched" class="help-block">
+          A name is required.
+        </p>
       </div>
-      <p ng-show="editTopicForm.name.$invalid && editTopicForm.name.$touched" class="help-block">
-        A name is required.
-      </p>
+      <div class="form-group">
+        <label class="control-label">Backgroudcolor for messages:</label>
+        <button colorpicker="rgba" colorpicker-position="top" style="background-color: {{topic.color}}"" type="button" class="btn btn-form-control"
+            ng-model="topic.color">Click to select color</button>
+      </div>
+      <div class="btn-right-container">
+        <button class="btn btn-success topic-input-button" type="submit" ng-disabled="editTopicForm.$invalid">Save</button>
+        <button class="btn btn-danger topic-input-button" type="button" ng-click="topicController.cancelEdit(topic)">Cancel</button>
+      </div>
     </form>
 
     <div class="topic-active-switch" ng-if="!topic.edit">

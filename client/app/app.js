@@ -10,7 +10,8 @@ angular.module('instantFeedApp', [
   'ngFileUpload',
   'bootstrapLightbox',
   'frapontillo.bootstrap-switch',
-  'angular-web-notification'
+  'angular-web-notification',
+  'colorpicker.module'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider

@@ -5,6 +5,7 @@ var mongoose = require('mongoose'),
 
 var TopicSchema = new Schema({
   name: String,
+  color: String,
   active: Boolean
 });
 

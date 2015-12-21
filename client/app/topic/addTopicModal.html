@@ -4,10 +4,10 @@
     <h3 class="modal-title">Add topic</h3>
   </div>
   <div class="modal-body">
-      <form ng-submit="topicController.addTopic(topic)" novalidate name="topicForm">
+      <form ng-submit="topicController.addTopic(topicController.topic)" novalidate name="topicForm">
         <div class="form-group" ng-class="{'has-error has-feedback': topicForm.name.$invalid && topicForm.name.$touched}">
           <label class="control-label">Topicname *:</label>
-          <input class="form-control" type="text" name="name" required ng-model="topic.name" autofocus="">
+          <input class="form-control" type="text" name="name" required ng-model="topicController.topic.name" autofocus="">
           <p ng-show="topicForm.name.$invalid && topicForm.name.$touched" class="help-block">
             <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
             A name is required.
@@ -15,7 +15,13 @@
           <br/ ng-hide="topicForm.name.$invalid && topicForm.name.$touched">
         </div>
 
-        <div>
+        <div class="form-group">
+          <label class="control-label">Backgroudcolor for messages:</label>
+          <button colorpicker="rgba" colorpicker-position="top" style="background-color: {{topicController.topic.color}}"" type="button" class="btn form-control"
+              ng-model="topicController.topic.color">Click to select color</button>
+        </div>
+
+        <div class="btn-right-container">
           <button class="btn btn-success topic-add-button" ng-disabled="topicForm.$invalid" type="submit">Add</button>
           <button type="button" class="btn btn-danger topic-add-button" ng-click="topicController.cancel()">Cancel</button>
         </div>

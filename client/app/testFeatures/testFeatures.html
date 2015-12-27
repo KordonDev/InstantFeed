@@ -1,0 +1,54 @@
+<h1 class="h1">Test features used by InstantFeed</h1>
+<h3 class="h3">Websockets</h3>
+<a href="https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=WebSocket">Websocket</a>
+
+
+<h3 class="h3">Notifications</h3>
+<h4 class="h4">Abstract</h4>
+<p>
+  Placeholder
+</p>
+
+<h4 class="h4">
+  Send yourself a notification.
+</h4>
+<form ng-submit="testFeatures.sendNotification(notification)" name="notificationForm" novalidate>
+
+  <div class="form-group" ng-class="{'has-error has-feedback': notificationForm.title.$invalid && notificationForm.title.$touched}">
+    <label class="control-label">Title:</label>
+    <input type="text" ng-model="notification.title" required class="form-control" placeholder="Title" name="title">
+    <p ng-show="notificationForm.title.$invalid && notificationForm.title.$touched" class="help-block">
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      A title is required.
+    </p>
+  </div>
+
+  <div class="form-group" ng-class="{'has-error has-feedback': notificationForm.text.$invalid && notificationForm.tex.$touched}">
+    <label class="control-label" name="text">Text for notification:</label>
+    <textarea required class="form-control" ng-model="notification.text" placeholder="Text for the notification." rows="2" name="text"></textarea>
+    <p ng-show="notificationForm.text.$invalid && notificationForm.text.$touched" class="help-block">
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      A text is required.
+    </p>
+  </div>
+
+  <div class="form-group" ng-class="{'has-error has-feedback': notificationForm.delay.$invalid && notificationForm.delay.$touched}">
+    <label class="control-label">Delay for notification:</label>
+    <input class="form-control" type="number" required name="delay" value="0" ng-model="notification.delay" min="0" placeholder="Seconds">
+    <p ng-show="notificationForm.delay.$invalid && notificationForm.delay.$touched" class="help-block">
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      Delay time is required.
+    </p>
+  </div>
+
+  <div class="form-group" ng-class="{'has-error has-feedback': notificationForm.displayTime.$invalid && notificationForm.displayTime.$touched}">
+    <label class="control-label">Seconds notification is displayed:</label>
+    <input class="form-control" required type="number" name="displayTime" ng-model="notification.displayTime" min="0" placeholder="Seconds">
+    <p ng-show="notificationForm.displayTime.$invalid && notificationForm.displayTime.$touched" class="help-block">
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      Display time is required.
+    </p>
+  </div>
+
+  <button type="submit" class="btn pull-right" ng-disabled="notificationForm.$invalid">Send me the notification</button>
+</form>

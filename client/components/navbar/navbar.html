@@ -23,6 +23,9 @@
         <li ng-show="navbar.isAdmin()" ng-class="{active: navbar.isActive('/admin')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
           <a href="/admin">Admin</a>
         </li>
+        <li ng-class="{active: navbar.isActive('/testFeatures')}" ng-click="navbar.isCollapsed = !navbar.isCollapsed">
+          <a href="/testFeatures">Featuretest</a>
+        </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

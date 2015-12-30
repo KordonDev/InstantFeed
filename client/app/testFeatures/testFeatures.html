@@ -2,6 +2,26 @@
 <h3 class="h3">Websockets</h3>
 <a href="https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=WebSocket">Websocket</a>
 
+<nav class="navbar navbar-default error" ng-class="{'success': testFeatures.connectionStatus.connected}">
+  <h4 class="center">Connected to server throu websockets.</h4>
+</nav>
+<div class="chat-window">
+  <p ng-repeat="message in testFeatures.testMessages track by $index">
+    {{ message }}
+  </p>
+  <h4 ng-hide="testFeatures.testMessages.length > 0" class="info">No messages send.</h4>
+</div>
+
+<form ng-submit="testFeatures.sendMessages()">
+  <div class="input-group">
+    <input type="text" class="form-control" required placeholder="Message to send..." ng-model="testFeatures.message">
+    <span class="input-group-btn">
+      <button class="btn btn-default" type="submit" ng-disabled="testFeatures.connectionStatus.connected === false">Send</button>
+    </span>
+  </div>
+</form>
+
+
 
 <h3 class="h3">Notifications</h3>
 <h4 class="h4">Abstract</h4>

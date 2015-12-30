@@ -18,6 +18,18 @@ angular.module('instantFeedApp')
     return {
       socket: socket,
 
+      connected: function(connectionStatus) {
+        socket.on('connect', function() {
+          connectionStatus.connected = true;
+        });
+      },
+
+      disconnected: function(connectionStatus) {
+        socket.on('disconnect', function() {
+          connectionStatus.connected = false;
+        });
+      },
+
       /**
        * Register listeners to sync an array with updates on a model
        *

@@ -1,7 +1,15 @@
 <h1 class="h1">Test features used by InstantFeed</h1>
 <h3 class="h3">Websockets</h3>
-<a href="https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=WebSocket">Websocket</a>
-
+<h4 class="h4">Abstract</h4>
+<blockquote cite="https://en.wikipedia.org/wiki/WebSocket">
+  <p>WebSocket is a protocol providing full-duplex communication channels over a single TCP connection. The WebSocket protocol was standardized by the IETF as RFC 6455 in 2011, and the WebSocket API in Web IDL is being standardized by the W3C.</p>
+  <p>WebSocket is designed to be implemented in web browsers and web servers, but it can be used by any client or server application. The WebSocket Protocol is an independent TCP-based protocol. Its only relationship to HTTP is that its handshake is interpreted by HTTP servers as an Upgrade request.[1] The WebSocket protocol makes more interaction between a browser and a website possible, facilitating live content and the creation of real-time games. This is made possible by providing a standardized way for the server to send content to the browser without being solicited by the client, and allowing for messages to be passed back and forth while keeping the connection open. In this way a two-way (bi-directional) ongoing conversation can take place between a browser and the server. The communications are done over TCP port number 80, which is of benefit for those environments which block non-web Internet connections using a firewall. Similar two-way browser-server communications have been achieved in non-standardized ways using stopgap technologies such as Comet.</p>
+  <a class="pull-right" href="https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=WebSocket">Source</a>
+</blockquote>
+<h4 class="h4">Try it yourself</h4>
+<p>
+  Open multiple browser windows and see the messages delivered.
+</p>
 <nav class="navbar navbar-default error" ng-class="{'success': testFeatures.connectionStatus.connected}">
   <h4 class="center">Connected to server by websockets.</h4>
 </nav>
@@ -25,10 +33,10 @@
 
 <h3 class="h3">Notifications</h3>
 <h4 class="h4">Abstract</h4>
-<p>
-  Placeholder
-</p>
-
+<blockquote cite="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API">
+  <p>The Notifications API allows web pages to control the display of system notifications to the end user — these are outside the top-level browsing context viewport, so therefore can be displayed even the user has switched tabs or moved to a different app. The API is designed to be compatible with existing notification systems across different platforms.</p>
+  <a class="pull-right" href="https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API">Source</a>
+</blockquote>
 <h4 class="h4">
   Send yourself a notification.
 </h4>

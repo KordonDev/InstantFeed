@@ -31,11 +31,11 @@ User.find({}).remove(function() {
     console.log('finished populating users');
   });
 });
-
+/*
 Message.find({}).remove(function() {
   console.log('Messages removed');
-});
-
+});}*/
+/*
 Topic.find({}).remove(function() {
   Topic.create({
     name: 'Football',
@@ -46,4 +46,4 @@ Topic.find({}).remove(function() {
     color: 'rgba(240,103,103, 0.4)',
     active: false
   });
-});
+});*/

@@ -7,6 +7,7 @@ var auth = require('../../auth/auth.service.js');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/toTopic', controller.messagesForTopic);
 router.get('/:id', controller.show);
 router.post('/', auth.hasRole('publisher'), controller.create);
 router.put('/:id', auth.hasRole('publisher'), controller.update);

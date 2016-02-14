@@ -6,7 +6,6 @@ var Topic = require('../topic/topic.model');
 
 // Get list of messages
 exports.index = function(req, res) {
-  debugger;
   Message.find(function (err, messages) {
     if(err) { return handleError(res, err); }
     return res.json(200, messages);
@@ -14,13 +13,16 @@ exports.index = function(req, res) {
 };
 
 // Get list of messages for array of topics, sorted and limited
-// req.query.topics has to be a structure like topics=["1","2"]
+// req.query.topics has to be a structure like topics=["1","2"] and skip=1
 exports.messagesForTopic = function(req, res) {
-  var topics = JSON.parse(req.query.topics);
-  debugger;
+  var topics = [];
+  topics = JSON.parse(req.query.topics);
+  console.log(topics);
+  var skip = (req.query.topics ? req.query.topics : 0);
   var messages = Message.find({"belongsTo": {$in: topics}})
-    .sort({timePublished: -1}).skip(0).limit(20).exec(function(err, messages) {
+    .sort({timePublished: -1}).skip(skip).limit(20).exec(function(err, messages) {
       if (err) { return handleError(res, err); }
+      console.log(messages);
       return res.json(200, messages);
     });
 };

@@ -8,10 +8,11 @@ angular.module('instantFeedApp')
       update: updateMessage,
       delete: deleteMessage,
       format: format,
-      sortAndCheckTopic: sortAndCheckTopic
+      sortAndCheckTopic: sortAndCheckTopic,
+      getMessagesInTopics: getMessagesInTopics
     };
 
-    var messageResource = $resource('/api/messages/:id', {id: '@_id'}, {update: {method: 'PUT'}});
+    var messageResource = $resource('/api/messages/:id/:toTopic', {id: '@_id'}, {update: {method: 'PUT'}});
     var imageResource = $resource('/api/images/');
 
     function getMessages() {
@@ -22,6 +23,10 @@ angular.module('instantFeedApp')
           }
           return [];
         });
+    }
+
+    function getMessagesInTopics(topics, skip) {
+      return messageResource.query({toTopic: 'toTopic', topics: JSON.stringify(topics), skip:skip}).$promise;
     }
 
     function addMessage(message, image) {

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('TestFeaturesController', function (webNotification, $window, $timeout, socket) {
+  .controller('TestFeaturesController', function (webNotification, $window, $timeout, socket, Message) {
     var vm = this;
     vm.testMessages = [];
     vm.connectionStatus = {
@@ -21,6 +21,10 @@ angular.module('instantFeedApp')
 
     vm.sendNotification = function(notification) {
       $timeout(function() {notify(notification);}, notification.delay * 1000);
+    };
+
+    vm.test = function() {
+      Message.getMessagesInTopics(['56892cd51e7685b1169f7f62'], 5);
     };
 
     function notify(notification) {

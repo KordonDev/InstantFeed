@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('topicService', function ($resource) {
+  .factory('Topic', function ($resource) {
     var topicService = {
       getTopics: getTopics,
       getActiveTopics: getActiveTopics,

@@ -1,9 +1,15 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('MainController', function ($scope, socket, Message) {
+  .controller('MainController', function ($scope, socket, Message, Topic) {
     var vm = this;
     vm.messages = [];
+    vm.topics = [];
+    var selectedTopics = [];
+
+    Topic.getActiveTopics().then(function(topics) {
+      vm.topics = topics;
+    });
 
     Message.get().then(function(messages) {
       vm.messages = messages;
@@ -14,6 +20,18 @@ angular.module('instantFeedApp')
       Message.format(event, message, array);
       vm.messages = Message.sortAndCheckTopic(array);
     }
+
+    vm.toggleTopic = function(topic) {
+      var topicIndex = selectedTopics.indexOf(topic._id);
+      if (topicIndex === -1) {
+        selectedTopics.push(topic._id);
+      } else {
+        selectedTopics.splice(topicIndex, 1);
+      }
+      Message.getMessagesInTopics(selectedTopics, 0).then(function(messages) {
+        vm.messages = messages;
+      });
+    };
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('message');

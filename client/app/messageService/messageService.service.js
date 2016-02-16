@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('Message', function ($resource, Upload, topicService, webNotification, $window, $filter, socket, $q) {
+  .factory('Message', function ($resource, Upload, Topic, webNotification, $window, $filter, socket, $q) {
     var messageService =  {
       get: getMessages,
       add: addMessage,
@@ -44,7 +44,7 @@ angular.module('instantFeedApp')
     }
 
     function updateMessage(message, image) {
-      return topicService.topicExistsAndIsAcitve(message.belongsTo).then(function() {
+      return Topic.topicExistsAndIsAcitve(message.belongsTo).then(function() {
         if (message.removePicture) {
           return imageResource.delete({imagePath: message.picture}).$promise
             .then(function() {
@@ -68,12 +68,12 @@ angular.module('instantFeedApp')
 
     function format(event, message, messages) {
       if (event === 'created' || event === 'updated') {
-        topicService.setTopicName(message);
+        Topic.setTopicName(message);
         notify(message);
       }
       if (event === 'all') {
         angular.forEach(messages, function(message) {
-          topicService.setTopicName(message);
+          Topic.setTopicName(message);
         });
         return sortAndCheckTopic(messages);
       }

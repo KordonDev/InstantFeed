@@ -11,7 +11,7 @@ angular.module('instantFeedApp')
         image: '='
       },
       bindToController: true,
-      controller: function($scope, $element, topicService) {
+      controller: function($scope, $element, Topic) {
         var vm = this;
         vm.activeTopics = [];
         vm.messageCopy = angular.copy(vm.message);
@@ -28,7 +28,7 @@ angular.module('instantFeedApp')
           }
         };
 
-        topicService.getActiveTopics().then(function(topics) {
+        Topic.getActiveTopics().then(function(topics) {
           vm.activeTopics = topics;
         });
       },

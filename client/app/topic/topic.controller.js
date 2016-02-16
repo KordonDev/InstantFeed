@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('TopicController', function ($scope, topicService, socket, $injector, $modal) {
+  .controller('TopicController', function ($scope, Topic, socket, $injector, $modal) {
     var vm = this;
     var addTopicModal;
     vm.topics = [];
 
-    topicService.getTopics().then(function(topics) {
+    Topic.getTopics().then(function(topics) {
       vm.topics = topics;
       socket.syncUpdates('topic', vm.topics);
     });
 
     vm.saveTopic = function(topic) {
       topic.name = topic.newName;
-      topicService.update(topic);
+      Topic.update(topic);
       topic.edit = undefined;
     };
 
@@ -27,7 +27,7 @@ angular.module('instantFeedApp')
     };
 
     vm.update = function(topic) {
-      topicService.update(topic);
+      Topic.update(topic);
     };
 
     vm.openAddTopic = function() {
@@ -44,7 +44,7 @@ angular.module('instantFeedApp')
   });
 
   angular.module('instantFeedApp')
-    .controller('TopicController.modal', function(topicService, $modalInstance) {
+    .controller('TopicController.modal', function(Topic, $modalInstance) {
       var vm = this;
       vm.topic = {};
 
@@ -56,7 +56,7 @@ angular.module('instantFeedApp')
 
       vm.addTopic = function(topic) {
         topic.active = true;
-        topicService.save(topic);
+        Topic.save(topic);
         cleanTopic();
         $modalInstance.close();
       };

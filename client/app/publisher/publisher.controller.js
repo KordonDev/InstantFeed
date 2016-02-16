@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('PublisherController', function ($scope, socket, Message, topicService) {
+  .controller('PublisherController', function ($scope, socket, Message) {
     var vm = this;
     vm.messages = [];
 

@@ -6,7 +6,7 @@ var Topic = require('../topic/topic.model');
 
 // Get list of messages
 exports.index = function(req, res) {
-  Message.find(function (err, messages) {
+  Message.find().sort({timePublished: -1}).exec(function(err, messages) {
     if(err) { return handleError(res, err); }
     return res.json(200, messages);
   });

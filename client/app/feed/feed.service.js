@@ -3,12 +3,21 @@
 angular.module('instantFeedApp')
   .factory('Feed', function (Message, Topic, webNotification, $window, $filter) {
     var feed =  {
+      getAllMessages: getAllMessages,
       messagesForTopic: messagesForTopic,
       messagesForAllTopics: messagesForAllTopics,
+      setTopicNameForMessages: setTopicNameForMessages,
       sameTopicSideBySide: sameTopicSideBySide,
       notify: notify,
       sortByDateDescendend: sortByDateDescendend
     };
+
+    /*
+    * Queries all messages for all topics.
+    */
+    function getAllMessages() {
+      return Message.get();
+    }
 
     /*
     * Queries messages for the topic and sets the topic for the messages.

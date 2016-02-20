@@ -1,8 +1,8 @@
 <h1 class="h1">Current Feed</h1>
 
 <div class="flex-container">
-  <button ng-repeat="topic in main.topics | orderBy: 'name' track by topic._id" type="button" name="topic" class="btn btn-primary-outline flex-topic"style="background-color: {{::topic.color}}"
-       ng-click="main.toggleTopic(topic)">{{ topic.name }}</button>
+  <button ng-repeat="topic in main.topics | orderBy: 'name' track by topic._id" type="button" name="topic" class="btn btn-primary-outline flex-topic"
+    style="background-color: {{::topic.color}}" ng-class="{'unselected-topic': !topic.selected}" ng-click="main.toggleTopic(topic)">{{ topic.name }}</button>
 </div>
 
 <div ng-repeat="feedMessage in main.messages track by $index">

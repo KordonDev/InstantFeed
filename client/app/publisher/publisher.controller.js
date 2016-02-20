@@ -1,20 +1,38 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('PublisherController', function ($scope, socket, Message) {
+  .controller('PublisherController', function ($scope, socket, Message, Feed) {
     var vm = this;
     vm.messages = [];
 
-    Message.get().then(function(messages) {
-      vm.messages = messages;
-      socket.syncUpdates('message', vm.messages, formatMessages);
-    });
+    /*
+    * Queries all messages for feed.
+    */
+    Feed.getAllMessages()
+      .then(function(messages) {
+        return Feed.setTopicNameForMessages(messages);
+      })
+      .then(function(messages) {
+        vm.messages = Feed.sameTopicSideBySide(messages);
+        socket.syncUpdates('message', vm.messages, addMessageToFeed);
+      });
 
-    function formatMessages(event, message, array) {
-      Message.format(event, message, array);
-      vm.messages = Message.sortAndCheckTopic(array);
+    /*
+    * Adds the message to the feed, if its topic is in the selectedTopics.
+    */
+    function addMessageToFeed(event, message, array) {
+      var messages = vm.messages;
+      Feed.setTopicNameForMessages([message])
+        .then(function(message) {
+          message = message[0];
+          messages.unshift(message);
+          vm.messages = Feed.sameTopicSideBySide(messages);
+        });
     }
 
+    /*
+    * Saves a message on the server.
+    */
     vm.publishMessage = function(message, image) {
       message.timePublished = new Date();
       return Message.add(message, image)
@@ -24,7 +42,10 @@ angular.module('instantFeedApp')
       );
     };
 
+    /*
+    * Ends the syncing with new messages.
+    */
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('message');
     });
-  });
+});

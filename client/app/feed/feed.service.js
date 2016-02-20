@@ -1,51 +1,52 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('Feed', function (Message, Topic, webNotification, $window) {
+  .factory('Feed', function (Message, Topic, webNotification, $window, $filter) {
     var feed =  {
       messagesForTopic: messagesForTopic,
       messagesForAllTopics: messagesForAllTopics,
       sameTopicSideBySide: sameTopicSideBySide,
-      notify: notify
+      notify: notify,
+      sortByDateDescendend: sortByDateDescendend
     };
 
     /*
     * Queries messages for the topic and sets the topic for the messages.
     */
-    var messagesForTopic = function(topic) {
+    function messagesForTopic(topic) {
       return Message.getMessagesInTopics([topic], 0).then(function(messages) {
         return setTopicNameForMessages(messages);
       });
-    };
+    }
 
     /*
     * Queries messages for all topics and skips the specified number. The messages
     * get then their topic and are checked for same topic side by side.
     */
-    var messagesForAllTopics = function(topics, skip) {
-      return Message.getMessagesInTopics(topics, skip).then(function(messages) {
-        return setTopicNameForMessages(messages);
-      }).then(function(messages) {
-        return sameTopicSideBySide(messages);
-      });
-    };
+    function messagesForAllTopics(topics, skip) {
+      return Message.getMessagesInTopics(topics, skip)
+        .then(function(messages) {
+          return setTopicNameForMessages(messages);
+        })
+        .then(function(messages) {
+          return sameTopicSideBySide(messages);
+        });
+    }
 
     /*
     * Adds the name of the topic to the message. This returns a promise.
     */
     function setTopicNameForMessages(messages) {
       return Topic.getActiveTopics().then(function(topics) {
-        angular.forEach(messages, function(message) {
-          for (var index = 0; index < topics.length; index++) {
-            if (topics[index].id === message.belongsTo) {
-              message.topic = topics[index];
-              break;
-            }
-          }
+        var topicMap = {};
+        angular.forEach(topics, function(topic) {
+          topicMap[topic._id] = topic;
         });
+        for (var index = 0; index < messages.length; index++) {
+          messages[index].topic = topicMap[messages[index].belongsTo];
+        }
         return messages;
       });
-      }
     }
 
     /*
@@ -58,7 +59,7 @@ angular.module('instantFeedApp')
           if (messages[i].belongsTo === messages[i-1].belongsTo) {
             messages[i].lastSameTopic = true;
           } else {
-            messages[i].sameTopic = false;
+            messages[i].lastSameTopic = false;
           }
         }
         if (i < messages.length-1) {
@@ -70,6 +71,11 @@ angular.module('instantFeedApp')
         }
       }
       return messages;
+    }
+
+    function sortByDateDescendend(messages) {
+      var orderByDate = $filter('orderBy');
+      return orderByDate(messages, 'timePublished').reverse();
     }
 
     /*

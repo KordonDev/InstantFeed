@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .factory('Message', function ($resource, Upload, Topic, $filter, $q) {
+  .factory('Message', function ($resource, Upload, Topic, $q) {
     var messageService =  {
       get: getMessages,
       add: addMessage,

@@ -1,20 +1,20 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .controller('MainController', function ($scope, socket, Message, Topic) {
+  .controller('MainController', function ($scope, socket, Message, Topic, Feed) {
     var vm = this;
     vm.messages = [];
     vm.topics = [];
-    var selectedTopics = [];
+    var selectedTopics = ['56892cd51e7685b1169f7f62'];
 
     Topic.getActiveTopics().then(function(topics) {
       vm.topics = topics;
     });
 
-    Message.get().then(function(messages) {
+    Feed.messagesForAllTopics(selectedTopics).then(function(messages) {
       vm.messages = messages;
-      socket.syncUpdates('message', vm.messages, formatMessages);
     });
+    socket.syncUpdates('message', vm.messages, formatMessages);
 
     function formatMessages(event, message, array) {
       Message.format(event, message, array);
@@ -28,7 +28,10 @@ angular.module('instantFeedApp')
       } else {
         selectedTopics.splice(topicIndex, 1);
       }
-      Message.getMessagesInTopics(selectedTopics, 0).then(function(messages) {
+      Feed.messagesForTopic(topic, 0).then(function(messages) {
+        messages = vm.messages.concat(messages);
+        messages = Feed.sortByDateDescendend(messages);
+        messages = Feed.sameTopicSideBySide(messages);
         vm.messages = messages;
       });
     };

@@ -24,17 +24,33 @@ angular.module('instantFeedApp')
     vm.toggleTopic = function(topic) {
       var topicIndex = selectedTopics.indexOf(topic._id);
       if (topicIndex === -1) {
+        addMessagesOfTopic(topic);
         selectedTopics.push(topic._id);
       } else {
+        removeMessagesOfTopic(topic);
         selectedTopics.splice(topicIndex, 1);
       }
+    };
+
+    function addMessagesOfTopic(topic) {
       Feed.messagesForTopic(topic, 0).then(function(messages) {
         messages = vm.messages.concat(messages);
         messages = Feed.sortByDateDescendend(messages);
         messages = Feed.sameTopicSideBySide(messages);
         vm.messages = messages;
       });
-    };
+    }
+
+    function removeMessagesOfTopic(topic) {
+      var messages = vm.messages;
+      for (var i = messages.length -1; i >= 0; i--) {
+        if (messages[i].belongsTo === topic._id) {
+          messages.splice(i, 1);
+        }
+      }
+      messages = Feed.sameTopicSideBySide(messages);
+      vm.messages = messages;
+    }
 
     $scope.$on('$destroy', function () {
       socket.unsyncUpdates('message');

@@ -37,7 +37,7 @@ angular.module('instantFeedApp', [
 
       // Intercept 401s and redirect you to login
       responseError: function(response) {
-        if(response.status === 401) {
+        if(response.status === 401 && !loginModal.isOpen()) {
           loginModal.open();
           // remove any stale tokens
           $cookieStore.remove('token');

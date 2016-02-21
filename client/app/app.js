@@ -11,7 +11,8 @@ angular.module('instantFeedApp', [
   'bootstrapLightbox',
   'frapontillo.bootstrap-switch',
   'angular-web-notification',
-  'colorpicker.module'
+  'colorpicker.module',
+  'infinite-scroll'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, LightboxProvider) {
     $urlRouterProvider

@@ -35,6 +35,20 @@ angular.module('instantFeedApp')
       $cookieStore.put('selectedTopics', selectedTopics);
     };
 
+    vm.loadMoreMessages = function() {
+      if (vm.messages.length > 0) {
+        Feed.messagesForAllTopics(selectedTopics, vm.messages.length)
+        .then(function(newMessages) {
+          return Feed.setTopicNameForMessages(newMessages);
+        })
+        .then(function(messages) {
+          messages = vm.messages.concat(messages);
+          messages = Feed.sortByDateDescendend(messages);
+          vm.messages = Feed.sameTopicSideBySide(messages);
+        });
+      }
+    };
+
     /*
     * Adds the message to the feed, if its topic is in the selectedTopics. And
     * notifies the user.

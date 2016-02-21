@@ -13,8 +13,8 @@ angular.module('instantFeedApp')
     var messageResource = $resource('/api/messages/:id/:toTopic', {id: '@_id'}, {update: {method: 'PUT'}});
     var imageResource = $resource('/api/images/');
 
-    function getMessages() {
-      return messageResource.query().$promise;
+    function getMessages(skip) {
+      return messageResource.query({skip: skip}).$promise;
     }
 
     function getMessagesInTopics(topics, skip) {

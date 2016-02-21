@@ -2,8 +2,10 @@
 <message-input submit-function="publisher.publishMessage(message, image)" submit-button-text="Publish message"> </message-input>
 
 <h3>Current Feed</h3>
-<div ng-repeat="feedMessage in publisher.messages track by $index">
-  <message message-data="feedMessage"></message>
+<div infinite-scroll="publisher.loadMoreMessages()">
+  <div ng-repeat="feedMessage in publisher.messages track by $index">
+    <message message-data="feedMessage"></message>
+  </div>
 </div>
 
 <div class="clear"></div>

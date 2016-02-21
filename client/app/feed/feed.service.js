@@ -15,8 +15,8 @@ angular.module('instantFeedApp')
     /*
     * Queries all messages for all topics.
     */
-    function getAllMessages() {
-      return Message.get();
+    function getAllMessages(skip) {
+      return Message.get(skip);
     }
 
     /*

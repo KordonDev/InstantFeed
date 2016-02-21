@@ -7,7 +7,7 @@ var Topic = require('../topic/topic.model');
 // Get list of messages
 exports.index = function(req, res) {
   var skip = (req.query.skip ? req.query.skip : 0);
-  Message.find().sort({timePublished: -1}).skip(skip).limit(20).exec(function(err, messages) {
+  Message.find().sort({timePublished: -1}).skip(skip).limit(10).exec(function(err, messages) {
     if(err) { return handleError(res, err); }
     return res.json(200, messages);
   });
@@ -21,7 +21,7 @@ exports.messagesForTopic = function(req, res) {
   console.log(topics);
   var skip = (req.query.skip ? req.query.skip : 0);
   var messages = Message.find({"belongsTo": {$in: topics}})
-    .sort({timePublished: -1}).skip(skip).limit(20).exec(function(err, messages) {
+    .sort({timePublished: -1}).skip(skip).limit(10).exec(function(err, messages) {
       if (err) { return handleError(res, err); }
       console.log(messages);
       return res.json(200, messages);

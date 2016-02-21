@@ -5,8 +5,10 @@
     style="background-color: {{::topic.color}}" ng-class="{'unselected-topic': !topic.selected}" ng-click="main.toggleTopic(topic)">{{ topic.name }}</button>
 </div>
 
-<div ng-repeat="feedMessage in main.messages track by $index">
-  <message message-data="feedMessage"></message>
+<div infinite-scroll="main.loadMoreMessages()">
+  <div ng-repeat="feedMessage in main.messages track by $index">
+    <message message-data="feedMessage"></message>
+  </div>
 </div>
 
 <div ng-hide="main.messages.length > 0">

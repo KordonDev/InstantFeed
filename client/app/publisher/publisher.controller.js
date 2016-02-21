@@ -43,6 +43,23 @@ angular.module('instantFeedApp')
     };
 
     /*
+    * Loads the next messages for the feed.
+    */
+    vm.loadMoreMessages = function() {
+      if (vm.messages.length > 0) {
+        Feed.getAllMessages(vm.messages.length)
+          .then(function(newMessages) {
+            return Feed.setTopicNameForMessages(newMessages);
+          })
+          .then(function(messages) {
+            messages = vm.messages.concat(messages);
+            messages = Feed.sortByDateDescendend(messages);
+            vm.messages = Feed.sameTopicSideBySide(messages);
+          });
+      }
+    };
+
+    /*
     * Ends the syncing with new messages.
     */
     $scope.$on('$destroy', function () {

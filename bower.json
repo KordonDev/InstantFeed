@@ -23,7 +23,8 @@
     "angular-web-notification": "~0.0.46",
     "install": "~1.0.4",
     "ngInfiniteScroll": "~1.2.2",
-    "angular-bootstrap-colorpicker": "^3.0.23"
+    "angular-bootstrap-colorpicker": "^3.0.23",
+    "DateJS": "datejs#~1.0.0-rc3"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",

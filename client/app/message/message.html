@@ -1,19 +1,22 @@
 <div class="well feed-well feed" ng-class="{nextSameTopic : message.nextSameTopic, lastSameTopic: message.lastSameTopic}" ng-show="message.change !== true"
-    style="background-color: {{message.topic.color}}" id="{{message._id}}">
+    style="background-color: {{message.topic.color}}" id="{{message._id}}" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = fals">
+  <div class="time-posted">
+    {{::messageController.postedTimeAgo(message)}}
+  </div>
+  <div class="float-right change-buttons" ng-show="messageController.isPublisher() && showEdit">
+    <button class="btn btn-link glyphicon glyphicon-pencil" ng-click="message.change = true"></button>
+    <button class="btn btn-link glyphicon glyphicon-trash" ng-click="messageController.deleteMessage(message)"></button>
+  </div>
   <div class="topic" ng-hide="message.lastSameTopic">
     <h4>{{ message.topic.name }}</h4>
   </div>
   <b>{{ message.headline }}</b>
-  ({{ message.timePublished | date: 'dd.MM.yyyy HH:mm'}}):
   <div class="content">
     <div class="pictureContainer">
       <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" ng-click="messageController.openModal(message.picture)"/>
     </div>
     {{ message.text }}
-    <div class="float-right" ng-show="messageController.isPublisher()">
-      <button class="btn glyphicon glyphicon-pencil" ng-click="message.change = true"></button>
-      <button class="btn btn-danger glyphicon glyphicon-remove" ng-click="messageController.deleteMessage(message)"></button>
-    </div>
+
   </div>
 </div>
 <div ng-if="message.change === true">

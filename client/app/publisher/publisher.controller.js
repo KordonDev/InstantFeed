@@ -43,12 +43,19 @@ angular.module('instantFeedApp')
     };
 
     /*
-    * Loads the next messages for the feed.
+    * Loads the next messages for the feed, if not the last message was empty and
+    * no request is send and has not responded.
     */
+    var promiseComplete = true;
+    var allMessagesLoaded = false;
     vm.loadMoreMessages = function() {
-      if (vm.messages.length > 0) {
+      if (vm.messages.length > 0 && promiseComplete && !allMessagesLoaded) {
+        promiseComplete = false;
         Feed.getAllMessages(vm.messages.length)
           .then(function(newMessages) {
+            if (newMessages.length === 0) {
+              allMessagesLoaded = true;
+            }
             return Feed.setTopicNameForMessages(newMessages);
           })
           .then(function(messages) {

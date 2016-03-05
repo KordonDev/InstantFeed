@@ -34,3 +34,28 @@
 .feed-well {
   border-color: #fff;
 }
+
+.time-posted {
+  width: 120px;
+  text-align: center;
+  background-color: #DDD;
+  position: relative;
+  right: -10px;
+  top: -19px;
+  float: right;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-top-width: 5px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-radius: 0px 0px 5px 5px;
+  border-style: solid;
+  border-color: #adadad;
+  border-width: 0px 1px 1px 1px;
+}
+
+.change-buttons {
+  position: relative;
+  top: 12px;
+  right: -138px;
+}

@@ -35,10 +35,21 @@ angular.module('instantFeedApp')
       $cookieStore.put('selectedTopics', selectedTopics);
     };
 
+    /*
+    * Loads the next messages for the feed, if not the last message was empty and
+    * no request is send and has not responded.
+    */
+    var promiseComplete = true;
+    var allMessagesLoaded = false;
     vm.loadMoreMessages = function() {
-      if (vm.messages.length > 0) {
+      if (vm.messages.length > 0 && promiseComplete && !allMessagesLoaded) {
+        promiseComplete = false;
         Feed.messagesForAllTopics(selectedTopics, vm.messages.length)
         .then(function(newMessages) {
+          if (newMessages.length === 0) {
+            allMessagesLoaded = true;
+          }
+          promiseComplete = true;
           return Feed.setTopicNameForMessages(newMessages);
         })
         .then(function(messages) {

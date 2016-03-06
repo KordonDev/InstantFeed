@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('instantFeedApp')
-  .directive('messageInput', function () {
+  .directive('messageInput', function (Lightbox) {
     return {
       transclude: true,
       scope: {

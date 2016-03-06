@@ -7,6 +7,9 @@ angular.module('instantFeedApp')
     vm.topics = [];
     var selectedTopics = $cookieStore.get('selectedTopics') ? $cookieStore.get('selectedTopics') : [];
 
+    /*
+    * Loads all active topics and saves them to the controller object.
+    */
     Topic.getActiveTopics().then(function(topics) {
       for (var i = 0; i < topics.length; i++) {
         if (selectedTopics.indexOf(topics[i]._id) !== -1) {
@@ -16,11 +19,19 @@ angular.module('instantFeedApp')
       vm.topics = topics;
     });
 
+    /*
+    * Loads all messages for the selected topics and syncs the messages with the backend
+    * over websockets.
+    */
     Feed.messagesForAllTopics(selectedTopics).then(function(messages) {
       vm.messages = messages;
       socket.syncUpdates('message', vm.messages, addMessageToFeed);
     });
 
+    /*
+    * Selects an unselected topic and adds the messages to the feed. If the topic is
+    * selected, the topic becomes unselected and the messages are removed from the feed.
+    */
     vm.toggleTopic = function(topic) {
       var topicIndex = selectedTopics.indexOf(topic._id);
       if (topicIndex === -1) {
@@ -71,6 +82,10 @@ angular.module('instantFeedApp')
         .then(function(message) {
           message = message[0];
           messages.unshift(message);
+          var messageTwice = messages.indexOf(message, 1);
+          if (messageTwice > -1) {
+            messages.splice(messageTwice, 1);
+          }
           vm.messages = Feed.sameTopicSideBySide(messages);
           Feed.notify(message);
         });

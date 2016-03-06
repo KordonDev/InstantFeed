@@ -1,7 +1,7 @@
 <div class="well feed-well feed" ng-class="{nextSameTopic : message.nextSameTopic, lastSameTopic: message.lastSameTopic}" ng-show="message.change !== true"
-    style="background-color: {{message.topic.color}}" id="{{message._id}}" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = fals">
+    style="background-color: {{message.topic.color}}" id="{{message._id}}" ng-mouseenter="showEdit = true" ng-mouseleave="showEdit = false">
   <div class="time-posted">
-    {{::messageController.postedTimeAgo(message)}}
+    {{messageController.timeSincePublished}}
   </div>
   <div class="float-right change-buttons" ng-show="messageController.isPublisher() && showEdit">
     <button class="btn btn-link glyphicon glyphicon-pencil" ng-click="message.change = true"></button>
@@ -16,11 +16,12 @@
       <img ng-show="message.picture" ng-src="{{message.picture}}" class="thumb" alt="Feed picture" ng-click="messageController.openModal(message)"/>
     </div>
     {{ message.text }}
-
   </div>
 </div>
-<div ng-if="message.change === true">
+<div class="editInFeed" ng-if="message.change === true">
+  <hr>
   <message-input message-data="message" submit-button-text="Change message" submit-function="messageController.changeMessage(message, image)">
     <button type="button" class="btn btn-danger" name="cancelChange" ng-click="message.change = false">Drop Change</button>
   </message-input>
+  <hr>
 </div>

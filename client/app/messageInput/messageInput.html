@@ -1,20 +1,20 @@
 <form enctype="multipart/form-data" novalidate ng-submit="messageInput.submitForm()" name="messageForm">
   <div class="message-form-group" ng-class="{'has-error has-feedback': messageForm.topic.$invalid && messageForm.$dirty}">
-    <label class="control-label">Select topic*:</label>
+    <label class="control-label">Select topic:</label>
     <p ng-show="messageForm.topic.$invalid && messageForm.$dirty" class="help-block">
       <span class="glyphicon glyphicon-remove form-control-feedback glyph-without-label" aria-hidden="true"></span>
       Selecting a topic is required.
     </p>
     <div class="flex-container">
       <input type="radio" name="topic" ng-model="messageInput.messageCopy.belongsTo" required ng-hide="true">
-      <button ng-repeat="topic in messageInput.activeTopics | orderBy: 'name' track by topic._id" ng-class="{active: messageInput.messageCopy.belongsTo === topic._id}"
+      <button ng-repeat="topic in messageInput.activeTopics | orderBy: 'name' track by topic._id" ng-class="{'unselected-topic': messageInput.messageCopy.belongsTo !== topic._id}"
           type="button" name="topic" required="messageInput.messageCopy.belongsTo" class="btn btn-primary-outline flex-topic"
-           ng-click="messageInput.messageCopy.belongsTo = topic._id">{{ topic.name }}</button>
+           ng-click="messageInput.messageCopy.belongsTo = topic._id" style="background-color: {{::topic.color}}">{{ topic.name }}</button>
     </div>
   </div>
 
   <div class="message-form-group">
-    <label class="control-label">Write a message*:</label>
+    <label class="control-label">Write a message:</label>
     <div ng-class="{'has-error has-feedback': messageForm.headline.$invalid && messageForm.headline.$touched}">
       <input required class="form-control" name="headline" ng-model="messageInput.messageCopy.headline" placeholder="Headline" type="text">
       <p ng-show="messageForm.headline.$invalid && messageForm.headline.$touched" class="help-block">
@@ -28,10 +28,12 @@
       ngf-multiple="false" ngf-allow-dir="false" accept="image/*" ngf-pattern="'image/*'">Drop image here or click to upload</div>
       <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
 
-      <img class="inputThumb" ng-if="messageInput.image" ngf-thumbnail="messageInput.image">
-      <img class="inputThumb" ng-show="messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture" ngf-thumbnail="messageInput.messageCopy.picture">
-      <button type="button" ng-click="messageInput.image = null; messageInput.messageCopy.removePicture = true;"
-      ng-show="messageInput.image || (!messageInput.messageCopy.removePicture && messageInput.messageCopy.picture)" class="btn glyphicon glyphicon-remove"></button>
+      <div class="thumb-container" ng-mouseenter="edit=true" ng-mouseleave="edit=false" ng-show="messageInput.image || (!messageInput.messageCopy.removePicture && messageInput.messageCopy.picture)">
+        <img class="imgThumb" ng-if="messageInput.image" ngf-thumbnail="messageInput.image">
+        <img class="imgThumb" ng-show="messageInput.messageCopy.picture && !messageInput.messageCopy.removePicture" ngf-thumbnail="messageInput.messageCopy.picture">
+        <button type="button" ng-show="edit" ng-click="messageInput.image = null; messageInput.messageCopy.removePicture = true;"
+          class="btn btn-link glyphicon glyphicon-trash remove"></button>
+      </div>
     </div>
 
     <div class="col-lg-10 col-md-10 col-sm-12 right left" ng-class="{'has-error has-feedback': messageForm.text.$invalid && messageForm.text.$touched}">

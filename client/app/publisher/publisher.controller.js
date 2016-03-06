@@ -26,6 +26,10 @@ angular.module('instantFeedApp')
         .then(function(message) {
           message = message[0];
           messages.unshift(message);
+          var messageTwice = messages.indexOf(message, 1);
+          if (messageTwice > -1) {
+            messages.splice(messageTwice, 1);
+          }
           vm.messages = Feed.sameTopicSideBySide(messages);
         });
     }

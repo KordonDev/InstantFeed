@@ -20,6 +20,11 @@ Durch mehrere Feeds in verschiedenen Tabs sind gegebenfalls Tabs im Hintergrund 
 Die Lösungen für die Probleme aus dem letzten Abschnitt werden im Folgenden erläutert. Dabei wird immmer die Blickwinkel von der Webapplikation InstantFeed aus sein. Zuerst werden Websockets erklärt. Dann werden die Desktopnotifikationen erklärt. Zum Abschluss gehe ich auf die personalisierte Feeds eingehen.
 
 ### Websockets
+Wird eine Webseite im Browser aufgerufen, fragt der Browser alle Resourcen bei dem entsprechenden Server ab. Wurden alle Anfragen beantwortet kann der Server keine weiteren Daten an den Browser schicken. Aller Datenverkehr zwischen Browser und Server muss vom Browser initialisiert werden. Um neue Daten vom Server zu bekommen, nachdem die Webseite geladen wurde, gibt es zwei Möglichkeiten.  
+Eine Möglichkeit besteht darin, periodisch in bestimmten Zeitabständen eine neue Abfrage beim Server zu machen. Bei neuen Daten werden diese geladen, jedoch entsteht durch die die vielen Abfragen ein unnötige Last auf dem Server und dem Netzwerk.  
+Die andere Möglichkeit ist das sogenannte *long polling*. Bei long polling wird vom Browser eine Anfrage an den Server gestellt, welche nicht sofort beantwortet wird. Die Verbindung wird so lange aufrecht erhalten, bis entweder neue Daten beim Server ankommen oder die Maximalzeit überschreitet und unterbrochen wird. Auch hierbei wird die Last auf dem Server, durch viele offene Anfragen, erhöht.
+
+
 * longpulling
 * Server -> Client Communikation
 * HTTP overhead (TCP)

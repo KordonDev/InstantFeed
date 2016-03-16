@@ -67,9 +67,37 @@ In InstantFeed wird nur die Nachricht über Websockets geschickt. Die Nachricht 
 
 
 ### Notifications
-* Desktopnotifikationen
-* Berechtigung
 
+Desktopnotifikationen sind Benachrichtigungen, welche vom Browser initialisiert und vom Betriebssystem angezeigt werden. Dadurch muss der Browser nicht im Vordergrund laufen und trotzdem wird der Benutzer benachrichtigt. Trotzdem muss der Browser die Webapplikation geöffnet haben.  
+Wenn zum ersten Mal eine Benachrichtigung des Browsers geschickt werden soll, wird der Nutzer gefragt, ob er diese zulassen will. Das erste nachfolgende Bild ist von Kubuntu, das zweite unter OSX aufgenommen.
+
+![Notification picture linux](images/notificationLinux.png)
+![Notification picture osx](images/notificationOsx.png)
+
+Eine Notification zeigt das Icon der Webapplikation und deren Url an. Außerdem die Überschrift und der Anfang des Textes der neuen Nachricht. Nach 10 Sekunden verschwindet die Benachrichtigung automatisch wieder.
+
+Für die Notifications wird die Bibliothek *angular-web-notification* verwendet. Damit muss die Funktion `showNotification` auf dem Objekt `webNotification` aufgerufen werden. Darin wird als erster Übergabeparameter die Überschrift der benachrichtigung übergeben.  
+Der zweite Parameter ist eine Objekt mit Einstellungen für die benachrichtigung. Das Attribut `body` enthält den Text, der in der Benachrichtigung angezeigt wird. 'icon' ist das Icon, welches am linken Rand angezeigt wird. Die Funktion `onClick` wird ausgeführt, wenn die Benachrichtigung angeklickt wird. In diesem fall wird dabei der Tab, der die Benachrichtigung geschickt hat in den Vordergrund geholt. In `autoClose` wird angegeben, nach wie vielen Millisekunden die Benachrichtigung wieder geschlossen wird.  
+Der dritte Parameter ist eine Funktion die ausgeführt wird, wenn die benachrichtigung angezeigt wird. In dieser werden die Fehler behandelt.
+
+```javascript
+function notify(message) {
+  webNotification.showNotification(message.headline, {
+    body: message.text,
+    icon: 'favicon.ico',
+    onClick: function onNotificationClicked() {
+      $window.location.hash = message._id;
+      $window.focus();
+    },
+    autoClose: 10000
+  }, function onShow(error) {
+    if (error) {
+      alert('Unable to show notification: ' + error.message);
+    }
+  });
+}
+```
+Unterstützt werden Benachrichtigung von Chrome und Firefox. Jedoch von keinem mobilen Browser.
 
 ### User defined Feeds
 * Abfrage zu topics

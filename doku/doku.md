@@ -100,9 +100,11 @@ function notify(message) {
 Unterstützt werden Benachrichtigung von Chrome und Firefox. Jedoch von keinem mobilen Browser.
 
 ### User defined Feeds
-* Abfrage zu topics
-* Clientseitige filter vor Websocket Nachrichten
-* Speicherung im Local Storage
+
+Als letztes Feature, werden benutzerdefinierte Feeds möglich. Dabei kann sich der Benutzer die Topics aussuchen zu denen er Nachrichten in seinem Feed angezeigt bekommen will.  
+Damit diese Einstellung nicht bei jedem Besuch der Webapplikation erneuert werden muss, werden die ausgewählten Topics im Local Storage gespeichert.
+
+Beim Aufrufen der Webseite und Hinzufügen einer Topic wird eine Anfrage an den Server gestellt, der nur die Nachrichten zu den ausgewählten Topics läd. Neu erstellte Nachrichten werden nicht auf dem Server gefiltert, da sonst der Server sich zu jeder offenen Websocket Verbindung die ausgewählten Topics speichern müsste. Stattdessen werden alle Nachrichten über Websockets an die Clients verteilt und dort gefiltert.
 
 ## Fazit
 

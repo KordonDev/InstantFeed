@@ -99,7 +99,7 @@ function notify(message) {
 ```
 Unterstützt werden Benachrichtigung von Chrome und Firefox. Jedoch von keinem mobilen Browser.
 
-### User defined Feeds
+### Benutzerdefinierte Feeds
 
 Als letztes Feature, werden benutzerdefinierte Feeds möglich. Dabei kann sich der Benutzer die Topics aussuchen zu denen er Nachrichten in seinem Feed angezeigt bekommen will.  
 Damit diese Einstellung nicht bei jedem Besuch der Webapplikation erneuert werden muss, werden die ausgewählten Topics im Local Storage gespeichert.
@@ -108,11 +108,10 @@ Beim Aufrufen der Webseite und Hinzufügen einer Topic wird eine Anfrage an den 
 
 ## Fazit
 
-Mit Websockets konnten sowohl unnötige Anfragen an den Server verhindert werden, als auch die Netzauslastung verringert werden, da direkt auf TCP kommuniziert wird.
+Mit Websockets konnten sowohl unnötige Anfragen an den Server verhindert werden, als auch die Netzauslastung verringert werden, da direkt auf TCP kommuniziert wird. Dank Notifications werden keine Ereignisse mehr verpasst. Und da es für alles bereits Bibliotheken gibt, die eine einfacherer Abstraktion der Funktionalität zur Verfügung stellen, können diese Techniken von jedem Eingesetzt werden.
 
-## Ausblick
-* Eingehende Nachrichten
-* Notifications einstellbar
+Da die Notifikationen im Browser erstellt werden, wäre in Zukunft auch einen genauere Einstellung von welchen Ereignissen man benachrichtigt werden soll möglich.
+
 
 ## Anhang
 https://github.com/KordonDev/InstantFeed  
@@ -120,3 +119,4 @@ https://nodejs.org/
 expressjs.com  
 mongoosejs.com  
 https://angularjs.org/
+https://github.com/sagiegurari/angular-web-notification

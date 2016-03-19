@@ -73,8 +73,9 @@ Desktopnotifikationen sind Benachrichtigungen, welche vom Browser initialisiert 
 Wenn zum ersten Mal eine Benachrichtigung des Browsers geschickt werden soll, wird der Nutzer gefragt, ob er diese zulassen will.   
 Das erste nachfolgende Bild zeigt eine Benachrichtigung unter Kubuntu, das zweite unter OSX.
 
-![Notification picture linux](images/notificationLinux.png)
-![Notification picture osx](images/notificationOsx.png)
+![Notification Linux](images/notificationLinux.png)
+
+![Notification OSX](images/notificationOsx.png)
 
 Eine Notification zeigt das Icon der Webapplikation und deren Url an. Außerdem die Überschrift und der Anfang des Textes der neuen Nachricht. Nach 10 Sekunden verschwindet sie automatisch wieder.
 

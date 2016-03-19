@@ -1,33 +1,34 @@
 # InstantFeed - ein Newsticker mit Websockets und Notifikationen
 # Einführung
-In meiner Projektarbeit an der Hochschule Karlsruhe habe ich einen Newsticker programmiert, der als Referenz für den Einsatz von *neuen* Technologien. Dazu werden neue Nachrichten über Websockets an den Browser des Benutzers geschickt. Damit auch keine dieser Nachrichten verpasst werden, zeigt das Betriebssystem eine Benachrichtigung an.  
+In meiner Projektarbeit an der Hochschule Karlsruhe habe ich einen Newsticker programmiert, der als Referenz für einen Newsticker mit den Einsatz von *neuen* Technologien dient. Eine eingesetzte Technologie sind Websockets, mit welcher neue Nachrichten vom Server an den Brower des Benutzers geschickt werden. Damit auch keine dieser Nachrichten verpasst wird, zeigt das Betriebssystem eine Benachrichtigung über die Notifikationen API an.  
 Da die Nachrichten ohne Verzögerung an den Nutzer weitergeleitet werden, wird die Webapplikation *InstantFeed* genannt.
 
-Dabei habe ich mich um die Probleme gekümmert, die mich am meisten gestört haben. Ich nutze den Ticker von www.kicker.de um dort Fußballspiele zu verfolgen. Dabei sind Tuniere wie der DFB Pokal und auch Ligaspiel in meinem Interesse. Oftmals finden dabei mehrere Spiele gleichzeitig statt.
+Ich habe mich dabei auf Probleme konzentriert, die mir selbst bei der Nutzung von Tickern gestört haben. Hauptsächlich verwende ich den Ticker von www.kicker.de um Fußballspiele zu verwenden. Ich habe mir zu beginn der Projektarbeit noch weitere Ticker angesehen, die alle die gleichen Probleme haben.  
+Neben dem Verfolgen einzeler Spiele, kann es beispielsweise bei Ligaspielen auch interessant sein, mehrere Spiele gleichzeitig zu verfolgen.
 
 # Technologien
-InstantFeed ist eine Client-Server Anwendung. Der Server ist dabei für die persistierung und Abfrage der Daten zuständig. Eingesetzt wird dazu ein Express web server. Dieser ist in Javascript geschrieben und läuft in Node.js. Die Daten speichert Express in der NoSQL Datenbank MongoDB. Auf der Frontendseite kommt AngularJs zum Einsatz.
+InstantFeed ist eine Client-Server Anwendung, deren Client im Browser läuft. Der Server ist für die Persistierung und Weiterleitung der Daten von der Datenbank zum Browser zuständig. Eingesetzt wird dazu ein Express Webserver, der in Javascript geschrieben ist und in Node.js läuft. Die Daten speichert Express in der NoSQL Datenbank MongoDB. Im Browser wird AngularJs und Bootstrap eingesetzt.
 
 ## Probleme von herkömmlichen Newstickern
-Viele Webseiten werden heute noch als statische Webseite ausgeliefert, die nach dem laden keine weitere Interaktion mit dem Server vornimmt. Dabei wird man oft nicht über neue Nachrichten in einem Feed informiert. Somit ist ein neuladen der Webseite nötig um diese auf Neuerungen zu überprüfen.  
-Durch das ständige laden einer Webseite werden neben den neuen Daten auch viele alte Daten erneut vom Server abgefragt und geladen. Dieser Vorgang erhöht die Netzauslastung unnötig.
+Viele Webseiten werden heute noch als statische Webseite ausgeliefert, die nach dem initialen laden der Webseite keine weiteren Interaktionen mit dem Server vernehmen. Dabei wird man oft nicht über neue Veränderungen auf der Webseite informiert. Somit ist ein Neuladen nötig um zu prüfen, ob es Neuerungen gab.  
+Durch das ständige neu laden einer Webseite werden neben den neuen Daten auch viele alte Daten erneut vom Server geladen. Dadurch wird die Netzauslastung unnötig erhöht.
 
-Bei mehreren parallelen Spielen müssen die verschiedenen Feeds in unterschiedlichen Tabs geöffnet werden. Die Mögichkeit mehrere, ausgewählte Feeds in einen zu Mischen ist auch nicht gegeben. Das Problem der unnötig geladen Daten ist dabei für jeden einzelnen Tab vorhanden. Somit multipliziert sich das Problem für jeden Feed der vorfolgt werden soll.  
-Durch mehrere Feeds in verschiedenen Tabs sind gegebenfalls Tabs im Hintergrund und Änderung in diesen werden verpasst. Dies kann soll durch ein Benachrichtigung des Betriebssystem gelöst werden.
+Bei mehreren parallelen Spielen müssen die verschiedenen Feeds in unterschiedlichen Tabs geöffnet werden. Die Mögichkeit mehrere, ausgewählte Feeds in einen Feed zu Mischen ist nicht gegeben. Somit werden für jeden Tab die gleichen Daten geladen.  
+Durch mehrere Feeds in verschiedenen Tabs sind gegebenfalls Tabs im Hintergrund und Änderung in diesen werden verpasst. Dies kann durch ein Benachrichtigung auf Betriebssystemebene gelöst werden.
 
 
 ## Lösungen
-Die Lösungen für die Probleme aus dem letzten Abschnitt werden im Folgenden erläutert. Dabei wird immmer die Blickwinkel von der Webapplikation InstantFeed aus sein. Zuerst werden Websockets erklärt. Dann werden die Desktopnotifikationen erklärt. Zum Abschluss gehe ich auf die personalisierte Feeds eingehen.
+Die Lösungen für die Probleme aus dem letzten Abschnitt werden im Folgenden Abschnitt erläutert. Dabei wird immmer auf Lösungen aus dem Blickwinkel der Webapplikation InstantFeed. Zuerst werden Websockets erklärt. Dann werden die Desktopnotifikationen erklärt. Zum Abschluss gehe ich auf die personalisierte Feeds eingehen.
 
 ### Websockets
-Wird eine Webseite im Browser aufgerufen, fragt der Browser alle Resourcen bei dem entsprechenden Server ab. Wurden alle Anfragen beantwortet kann der Server keine weiteren Daten an den Browser schicken. Aller Datenverkehr zwischen Browser und Server muss vom Browser initialisiert werden. Um neue Daten vom Server zu bekommen, nachdem die Webseite geladen wurde, gibt es zwei Möglichkeiten.  
-Eine Möglichkeit besteht darin, periodisch in bestimmten Zeitabständen eine neue Abfrage beim Server zu machen. Bei neuen Daten werden diese geladen, jedoch entsteht durch die die vielen Abfragen ein unnötige Last auf dem Server und dem Netzwerk.  
-Die andere Möglichkeit ist das sogenannte *long polling*. Bei long polling wird vom Browser eine Anfrage an den Server gestellt, welche nicht sofort beantwortet wird. Die Verbindung wird so lange aufrecht erhalten, bis entweder neue Daten beim Server ankommen oder die Maximalzeit überschreitet und unterbrochen wird. Auch hierbei wird die Last auf dem Server, durch viele offene Anfragen, erhöht.  
-Alle der bisher beschriebenen Anfragen laufen über HTTP(S), dem eine TCP Verbindung zugrunde liegt.
+Wird eine Webseite im Browser aufgerufen, fragt der Browser alle Resourcen bei dem entsprechenden Server ab. Wurden alle Anfragen beantwortet, kann der Server keine weiteren Daten an den Browser schicken. Aller Datenverkehr zwischen Browser und Server muss vom Browser initialisiert werden. Um neue Daten vom Server zu bekommen, nachdem die Webseite geladen wurde, gibt es zwei Möglichkeiten.  
+Eine Möglichkeit besteht darin, in periodischen Zeitabständen Anfragen an den Server zu schicken. Wenn neue Daten vorhanden sind werden diese geladen, jedoch werden auch die alten Daten erneut geladenn. Dadurch und durch die die vielen Abfragen entsteht eine unnötige Last auf dem Server und dem Netzwerk.  
+Die andere Möglichkeit ist das sogenannte *long polling*. Bei long polling wird vom Browser eine Anfrage an den Server gestellt, welche nicht sofort beantwortet wird. Die Verbindung wird so lange offen gehalten, bis entweder neue Daten beim Server zur Verfügung stehen oder die maximale Wartezeit überschriten wird. Auch hierbei wird die Last auf dem Server, durch viele offene Anfragen, erhöht.  
+Zusätzlich nutzen beide Methoden HTTP(S) und damit desen Overhead. Websckets setzen direkt auf TCP, welches auch ein Unterbau von HTTP(S) ist.
 
-Auch bei Websockets wird die Verbindung vom Client initialisiert, jedoch nicht nach Datentransfer abgebaut. Über diese bidirektionale Verbindung kann in beide Richtungen, Client zu Server und Server zu Client, Daten geschickt werden.
+Auch bei Websockets wird die Verbindung vom Client initialisiert, jedoch nicht nach dem Datentransfer abgebaut. Über diese bidirektionale Verbindung kann in beide Richtungen, Client zu Server und Server zu Client, Daten geschickt werden. Dadurch das auf HTTP(S) verzichtet wird und direkt auf TCP aufgesetzt wird, ist der Overhead deutlich kleiner, wie bei den zuvor vorgestellten Methoden.
 
-Bei InstantFeed wird eine Websocketverbindung zum Server aufgebaut, wenn der Feed angezeigt wird. Wird eine neue Nachricht an den Server geschickt, wird nach dem Speichern die Nachricht über den Websocket verschickt. Die Variable `doc` enthält dabei die gespeicherte Nachricht als Javascriptobjekt.
+Bei InstantFeed wird eine Websocketverbindung zum Server aufgebaut, wenn der Feed angezeigt wird. Wird eine neue Nachricht von einem Client an den Server geschickt, wird nach dem Speichern die Nachricht über den Websocket an alle Clients verteilt. Die Variable `doc` enthält dabei die gespeicherte Nachricht als Javascriptobjekt.
 
 ```javascript
 exports.register = function(socket) {
@@ -40,10 +41,10 @@ function onSave(socket, doc, cb) {
 }
 ```
 
-Auf dem Client wurde eine Funktion vorbereitet, die Nachrichten über Websockets verarbeitet. Diese Funktion hat einen Identifier für die Nachrichten, das Array, welchem die Nachricht hinzugefügt wir, sowie eine Callbackfunction übergeben bekommen.  
-Der Identifier ist nötig, da nicht nur Nachrichten, sondern alle Daten die syncronisiert werden über den gleichen Websocket geschickt werden. Wir wollen hier aber nur die Nachrichten, weshalb wir diese Filtern.  
-Das Array ist im Beispielcode `array` genannt. Zuerst wird überprüft, ob sich darin bereits ein Objekt befindet mit der gleichen `id`. Besteht ein Objekt mit dieser `id` wird dieses ersetzt, ansonsten wird das neue Objekt hinzugefügt.  
-Am Ende wird die übergebene Callbackfunction ausgeführt.
+Auf dem Client wurde eine Funktion vorbereitet, die Nachrichten über Websockets verarbeitet. Diese Funktion hat einen Identifier für die Art der Daten, das Array, welchem die Nachricht hinzugefügt wird, sowie eine Callbackfunktion übergeben bekommen.  
+Der Identifier ist nötig, da nicht nur Nachrichten, sondern alle Daten werden über den gleichen Websocket syncronisiert werden. In dieser Methode sollen aber nur Nachrichten verarbeiten werden, deshalb müssen diese anhand des Idenifiers hergeausfiltert werden.  
+Das Array ist im Beispielcode `array` genannt. Zuerst wird überprüft, ob sich darin bereits ein Objekt mit der gleichen `id` befindet. Das Objekt mit dieser `id` wird dann ersetzt oder wenn das Objekt noch nicht vorhanden ist, das neue Objekt hinzugefügt.  
+Am Ende wird die übergebene Callbackfunktion ausgeführt. In InstantFeed wird in der Callbackfunktion wird die Topic für die Nachricht gesetzt, geprüft, ob die Topic weggelassen werden kann und gegebenfalls eine Benachrichtigungen geschickt.
 
 ```javascript
 socket.on(modelName + ':save', function (item) {
@@ -63,22 +64,23 @@ socket.on(modelName + ':save', function (item) {
 });
 ```
 
-In InstantFeed wird nur die Nachricht über Websockets geschickt. Die Nachricht hat jeweils eine Referenz auf die zugehörige Topic und gegebenfalls auf ein Bild. Die Topic und das Bild werden wiederum per HTTP(S) Anfrage vom Server geladen. Da diese jetzt keine unnötigen Anfragen gemacht werden und besonders bei Bildern der Overhead von HTTP(S) relative nicht so groß ist.
+In InstantFeed enthält das Objekt, welches über den Websocket empfangen wird, nur die Nachricht selbst. Die Nachricht selbst hat eine Referenz auf die zugehörige Topic und gegebenfalls auf ein Bild. Die Topic und das Bild werden wiederum per HTTP(S) Anfrage vom Server geladen.
 
 
 ### Notifications
 
-Desktopnotifikationen sind Benachrichtigungen, welche vom Browser initialisiert und vom Betriebssystem angezeigt werden. Dadurch muss der Browser nicht im Vordergrund laufen und trotzdem wird der Benutzer benachrichtigt. Trotzdem muss der Browser die Webapplikation geöffnet haben.  
-Wenn zum ersten Mal eine Benachrichtigung des Browsers geschickt werden soll, wird der Nutzer gefragt, ob er diese zulassen will. Das erste nachfolgende Bild ist von Kubuntu, das zweite unter OSX aufgenommen.
+Desktopnotifikationen sind Benachrichtigungen, welche vom Browser initialisiert und vom Betriebssystem angezeigt werden. Dadurch muss der Browser nicht im Vordergrund laufen, um den Benutzer zubenachrichtigen. Die Webapplikation muss trozdem im Browser laufen.
+Wenn zum ersten Mal eine Benachrichtigung des Browsers geschickt werden soll, wird der Nutzer gefragt, ob er diese zulassen will.   
+Das erste nachfolgende Bild zeigt eine Benachrichtigung unter Kubuntu, das zweite unter OSX.
 
 ![Notification picture linux](images/notificationLinux.png)
 ![Notification picture osx](images/notificationOsx.png)
 
-Eine Notification zeigt das Icon der Webapplikation und deren Url an. Außerdem die Überschrift und der Anfang des Textes der neuen Nachricht. Nach 10 Sekunden verschwindet die Benachrichtigung automatisch wieder.
+Eine Notification zeigt das Icon der Webapplikation und deren Url an. Außerdem die Überschrift und der Anfang des Textes der neuen Nachricht. Nach 10 Sekunden verschwindet sie automatisch wieder.
 
-Für die Notifications wird die Bibliothek *angular-web-notification* verwendet. Damit muss die Funktion `showNotification` auf dem Objekt `webNotification` aufgerufen werden. Darin wird als erster Übergabeparameter die Überschrift der benachrichtigung übergeben.  
-Der zweite Parameter ist eine Objekt mit Einstellungen für die benachrichtigung. Das Attribut `body` enthält den Text, der in der Benachrichtigung angezeigt wird. 'icon' ist das Icon, welches am linken Rand angezeigt wird. Die Funktion `onClick` wird ausgeführt, wenn die Benachrichtigung angeklickt wird. In diesem fall wird dabei der Tab, der die Benachrichtigung geschickt hat in den Vordergrund geholt. In `autoClose` wird angegeben, nach wie vielen Millisekunden die Benachrichtigung wieder geschlossen wird.  
-Der dritte Parameter ist eine Funktion die ausgeführt wird, wenn die benachrichtigung angezeigt wird. In dieser werden die Fehler behandelt.
+Für die Notifications wird die Bibliothek *angular-web-notification* verwendet. Damit muss die Funktion `showNotification` auf dem Objekt `webNotification` aufgerufen werden. Der Funktion wird als erster Übergabeparameter die Überschrift der Benachrichtigung übergeben.  
+Der zweite Parameter ist eine Objekt mit Einstellungen für die Benachrichtigung. Das Attribut `body` enthält den Text, der in der Benachrichtigung angezeigt wird. 'icon' ist das Icon, welches am linken Rand angezeigt wird. Die Funktion `onClick` wird ausgeführt, wenn die Benachrichtigung angeklickt wird. In InstantFeed wird dabei der Tab, welcher die Benachrichtigung geschickt hat, in den Vordergrund geholt. In `autoClose` wird angegeben, nach wie vielen Millisekunden die Benachrichtigung wieder geschlossen wird.  
+Der dritte Parameter ist eine Funktion die ausgeführt wird, wenn die Benachrichtigung angezeigt wird. Darin findet die Fehlerbehandlung statt.
 
 ```javascript
 function notify(message) {
@@ -101,22 +103,20 @@ Unterstützt werden Benachrichtigung von Chrome und Firefox. Jedoch von keinem m
 
 ### Benutzerdefinierte Feeds
 
-Als letztes Feature, werden benutzerdefinierte Feeds möglich. Dabei kann sich der Benutzer die Topics aussuchen zu denen er Nachrichten in seinem Feed angezeigt bekommen will.  
-Damit diese Einstellung nicht bei jedem Besuch der Webapplikation erneuert werden muss, werden die ausgewählten Topics im Local Storage gespeichert.
+Ein weiteres Feature sind benutzerdefinierte Feeds. Dabei kann sich der Benutzer aus den aktuellen Topics, die aussuchen von denen er Nachrichten in seinem Feed angezeigt bekommen will.  
+Diese Einstellungen werden im Local Storage des Browsers gespeichert. Damit ist die Auswahl für einen Computer gespeichert, auch wenn der Browser geschlossen und der Computer ausgeschaltet wird. Die Einstellungen werden aber nicht über den Computer hinaus syncronisiert.
 
-Beim Aufrufen der Webseite und Hinzufügen einer Topic wird eine Anfrage an den Server gestellt, der nur die Nachrichten zu den ausgewählten Topics läd. Neu erstellte Nachrichten werden nicht auf dem Server gefiltert, da sonst der Server sich zu jeder offenen Websocket Verbindung die ausgewählten Topics speichern müsste. Stattdessen werden alle Nachrichten über Websockets an die Clients verteilt und dort gefiltert.
+Beim Aufrufen der Webseite und hinzufügen einer Topic wird eine Anfrage an den Server gestellt, der nur die Nachrichten zu den ausgewählten Topics läd. Neue Nachrichten werden nicht auf dem Server gefiltert, da sonst der Server sich zu jedem Websocket die ausgewählten Topics speichern müsste. Stattdessen werden alle Nachrichten über Websockets an die Clients verteilt und dort gefiltert.
 
 ## Fazit
 
-Mit Websockets konnten sowohl unnötige Anfragen an den Server verhindert werden, als auch die Netzauslastung verringert werden, da direkt auf TCP kommuniziert wird. Dank Notifications werden keine Ereignisse mehr verpasst. Und da es für alles bereits Bibliotheken gibt, die eine einfacherer Abstraktion der Funktionalität zur Verfügung stellen, können diese Techniken von jedem Eingesetzt werden.
-
-Da die Notifikationen im Browser erstellt werden, wäre in Zukunft auch einen genauere Einstellung von welchen Ereignissen man benachrichtigt werden soll möglich.
+Mit Websockets konnten sowohl unnötige Anfragen an den Server verhindert werden, als auch die Netzauslastung verringert werden. Dank der Notifications API werden keine Ereignisse mehr verpasst. Die Technologien können dank entsprechender Bibliotheken, welche eine Abstraktion der Funktionalität zur Verfügung stellen, von jedem Entwickler eingesetzt werden.
 
 
 ## Anhang
 https://github.com/KordonDev/InstantFeed  
 https://nodejs.org/  
-expressjs.com  
-mongoosejs.com  
+http://expressjs.com  
+http://mongoosejs.com  
 https://angularjs.org/
 https://github.com/sagiegurari/angular-web-notification

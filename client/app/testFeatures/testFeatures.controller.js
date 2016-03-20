@@ -10,23 +10,31 @@ angular.module('instantFeedApp')
     socket.connected(vm.connectionStatus);
     socket.connected(vm.connectionStatus);
 
+    /*
+    * Adds new chatMessage to the beginning of the testMessages.
+    */
     socket.socket.on('chatMessage', function(message) {
       vm.testMessages.unshift(message);
     });
 
+    /*
+    * Sends a chatMessage over the socket.
+    */
     vm.sendMessage = function() {
       socket.socket.emit('chatMessage', vm.message);
       vm.message = null;
     };
 
+    /*
+    * Opens a notification after the delay time in seconds.
+    */
     vm.sendNotification = function(notification) {
       $timeout(function() {notify(notification);}, notification.delay * 1000);
     };
 
-    vm.test = function() {
-      Message.getMessagesInTopics(['56892cd51e7685b1169f7f62'], 5);
-    };
-
+    /*
+    * Sends a notification with userdefined data.
+    */
     function notify(notification) {
       webNotification.showNotification(notification.title, {
         body: notification.text,

@@ -10,12 +10,9 @@ describe('Controller: TestFeaturesCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    TestFeaturesCtrl = $controller('TestFeaturesCtrl', {
+    TestFeaturesCtrl = $controller('TestFeaturesController', {
       $scope: scope
     });
   }));
 
-  it('should ...', function () {
-    expect(1).toEqual(1);
-  });
 });

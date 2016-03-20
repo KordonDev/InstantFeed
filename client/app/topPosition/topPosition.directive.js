@@ -7,6 +7,11 @@ angular.module('instantFeedApp')
       link: function (scope, element) {
         var window = angular.element($window);
         var scroll;
+
+        /*
+        * Checks the scroll position. If scrolled down, topic selection is fixed otherwise
+        * topic selection is above feed in the flow.
+        */
         var position = function() {
           var width = $document.find('.feed-container').width();
           scroll = window.scrollTop();
@@ -26,6 +31,7 @@ angular.module('instantFeedApp')
             });
           }
         };
+
         window.on('scroll', scope.$apply.bind(scope, position));
         position();
       }

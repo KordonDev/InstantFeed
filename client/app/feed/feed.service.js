@@ -82,6 +82,9 @@ angular.module('instantFeedApp')
       return messages;
     }
 
+    /*
+    * Sorts messages by timePublished from newest to oldest.
+    */
     function sortByDateDescendend(messages) {
       var orderByDate = $filter('orderBy');
       return orderByDate(messages, 'timePublished').reverse();

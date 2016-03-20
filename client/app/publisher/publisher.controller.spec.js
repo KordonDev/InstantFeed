@@ -10,12 +10,9 @@ describe('Controller: PublisherCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    PublisherCtrl = $controller('PublisherCtrl', {
+    PublisherCtrl = $controller('PublisherController', {
       $scope: scope
     });
   }));
 
-  it('should ...', function () {
-    expect(1).toEqual(1);
-  });
 });

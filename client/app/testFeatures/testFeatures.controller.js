@@ -5,9 +5,9 @@ angular.module('instantFeedApp')
     var vm = this;
     vm.testMessages = [];
     vm.connectionStatus = {
-      'connected': false
+      'connected': false,
+      'text': 'not connected'
     };
-    socket.connected(vm.connectionStatus);
     socket.connected(vm.connectionStatus);
 
     /*

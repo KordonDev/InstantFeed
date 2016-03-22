@@ -5,9 +5,11 @@
 'use strict';
 
 var config = require('./environment');
+var testFeatureSockets = [];
 
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
+  require('../api/testFeature/testFeature.socket').register(socket, testFeatureSockets);
 }
 
 // When the user connects.. perform this
@@ -18,7 +20,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/testFeature/testFeature.socket').register(socket);
+  require('../api/testFeature/testFeature.socket').register(socket, testFeatureSockets);
   require('../api/topic/topic.socket').register(socket);
   require('../api/image/image.socket').register(socket);
   require('../api/message/message.socket').register(socket);

@@ -1,6 +1,5 @@
 <h1 class="h1">Test features used by InstantFeed</h1>
 
-<button type="button" class="btn btn-default" name="button" ng-click="testFeatures.test()">test</button>
 <h3 class="h3">Websockets</h3>
 <h4 class="h4">Abstract</h4>
 <blockquote cite="https://en.wikipedia.org/wiki/WebSocket">
@@ -12,17 +11,17 @@
 <p>
   Open multiple browser windows and see the messages delivered.
 </p>
-<nav class="navbar navbar-default error" ng-class="{'success': testFeatures.connectionStatus.connected}">
-  <h4 class="center">Connected to server by websockets.</h4>
-</nav>
 <div class="chat-window">
+  <div class="connection" ng-class="{'success': testFeatures.connectionStatus.connected}">
+    {{testFeatures.connectionStatus.text}}
+  </div>
   <p ng-repeat="message in testFeatures.testMessages track by $index">
     {{ message }}
   </p>
   <h4 ng-hide="testFeatures.testMessages.length > 0" class="info">No messages send.</h4>
 </div>
 
-<form ng-submit="testFeatures.sendMessages()">
+<form ng-submit="testFeatures.sendMessage()">
   <div class="input-group">
     <input type="text" class="form-control" required placeholder="Message to send..." ng-model="testFeatures.message">
     <span class="input-group-btn">
@@ -31,7 +30,7 @@
   </div>
 </form>
 
-
+<br/><br/>
 
 <h3 class="h3">Notifications</h3>
 <h4 class="h4">Abstract</h4>
@@ -42,6 +41,7 @@
 <h4 class="h4">
   Send yourself a notification.
 </h4>
+
 <form ng-submit="testFeatures.sendNotification(notification)" name="notificationForm" novalidate>
 
   <div class="form-group" ng-class="{'has-error has-feedback': notificationForm.title.$invalid && notificationForm.title.$touched}">

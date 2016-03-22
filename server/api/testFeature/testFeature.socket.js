@@ -4,8 +4,27 @@
 
 'use strict';
 
-exports.register = function(socket) {
+var register = function(socket, testFeatureSockets) {
+  testFeatureSockets.push(socket);
   socket.on('chatMessage', function(message) {
-    socket.emit('chatMessage', message);
-  })
+    emitAll(message, testFeatureSockets);
+  });
+};
+
+function emitAll(message, testFeatureSockets) {
+  for (var i = 0; i < testFeatureSockets.length; i++) {
+    testFeatureSockets[i].emit('chatMessage', message);
+  }
+}
+
+var unregister = function(socket, testFeatureSockets) {
+  var index = testFeatureSockets.indexOf(socket);
+  if (index > -1) {
+    testFeatureSockets.splice(index, 1);
+  }
+};
+
+module.exports = {
+  register: register,
+  unregister: unregister
 };

@@ -21,12 +21,14 @@ angular.module('instantFeedApp')
       connected: function(connectionStatus) {
         socket.on('connect', function() {
           connectionStatus.connected = true;
+          connectionStatus.text = 'connected';
         });
       },
 
       disconnected: function(connectionStatus) {
         socket.on('disconnect', function() {
           connectionStatus.connected = false;
+          connectionStatus.text = 'not connected';
         });
       },
 

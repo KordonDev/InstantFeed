@@ -6,6 +6,25 @@
   border-width: 1px 1px 0px 1px;
   border-color: lightgray;
   padding: 10px;
+
+  .connection {
+    width: 155px;
+    text-align: center;
+    background-color: #d9534f;
+    position: relative;
+    right: -10px;
+    top: -10px;
+    float: right;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top-width: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-radius: 0px 0px 5px 5px;
+    border-style: solid;
+    border-color: #adadad;
+    border-width: 0px 1px 1px 1px;
+  }
 }
 
 .info {

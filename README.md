@@ -9,7 +9,7 @@ Webapplikation to share feeds with other. This feeds are instant send form the s
 - Angular 1.X
 - Socket.io
 - bootstrap
-- ...
+- lodash
 
 ## Install
 ### Requirements
